@@ -1,6 +1,7 @@
 package sol_5pecia1.expense_manager;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,11 +16,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Arrays;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
-
+    final static @DrawableRes List<Integer> ICONS = Arrays.asList(
+            R.drawable.ic_more_vert_black_24dp
+            , R.drawable.ic_assignment_black_24dp
+            , R.drawable.ic_add_black_24dp
+    );
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -52,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            tabLayout.getTabAt(i).setIcon(ICONS.get(i));
+        }
+
+        mViewPager.setCurrentItem(1);
+
 
 //      FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //      fab.setOnClickListener(new View.OnClickListener() {
@@ -113,18 +127,18 @@ public class MainActivity extends AppCompatActivity {
             return 3;
         }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
-            return null;
-        }
+//        @Override
+//        public CharSequence getPageTitle(int position) {
+//            switch (position) {
+//                case 0:
+//                    return "SECTION 1";
+//                case 1:
+//                    return "SECTION 2";
+//                case 2:
+//                    return "SECTION 3";
+//            }
+//            return null;
+//        }
     }
 
     /**
