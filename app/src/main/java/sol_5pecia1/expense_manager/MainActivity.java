@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +29,11 @@ public class MainActivity extends AppCompatActivity {
     );
     private final static int FIRST_FRAGMENT_LOCATION = 1;
 
-    @BindView(R.id.container) ViewPager viewPager;
+    @BindView(R.id.left_day)
+    TextView tvLeftDay;
+
+    @BindView(R.id.container)
+    ViewPager viewPager;
 
     private SectionsPagerAdapter sectionsPagerAdapter;
 
@@ -40,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        setLeftDay("00");
+
         sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -69,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setLeftDay(String day) {
+        tvLeftDay.setText(getApplicationContext().getString(R.string.left_day, day));
     }
 
 
