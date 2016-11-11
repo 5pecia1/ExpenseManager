@@ -16,14 +16,29 @@ import sol_5pecia1.expense_manager.view.MoneyFormatView;
  */
 public class MainInformationFragment extends Fragment {
 
-    @BindView(R.id.today_budget) MoneyFormatView mfvTodayBudget;
-    @BindView(R.id.today_left) MoneyFormatView mfvTodayLeft;
-    @BindView(R.id.today_left_progress) ProgressBar pTodayLeft;
-    @BindView(R.id.month_left) MoneyFormatView mfvMonthLeft;
-    @BindView(R.id.month_left_progress) ProgressBar pMonthLeft;
-    @BindView(R.id.month_all_spend) MoneyFormatView mfvMonthAllSpend;
-    @BindView(R.id.day_average_spend) MoneyFormatView mfvDayAverageSpend;
-    @BindView(R.id.plan_spend) MoneyFormatView mfvPlanSpend;
+    @BindView(R.id.today_budget)
+    MoneyFormatView mfvTodayBudget;
+
+    @BindView(R.id.today_left)
+    MoneyFormatView mfvTodayLeft;
+
+    @BindView(R.id.today_left_progress)
+    ProgressBar pTodayLeft;
+
+    @BindView(R.id.month_left)
+    MoneyFormatView mfvMonthLeft;
+
+    @BindView(R.id.month_left_progress)
+    ProgressBar pMonthLeft;
+
+    @BindView(R.id.month_all_spend)
+    MoneyFormatView mfvMonthAllSpend;
+
+    @BindView(R.id.day_average_spend)
+    MoneyFormatView mfvDayAverageSpend;
+
+    @BindView(R.id.plan_spend)
+    MoneyFormatView mfvPlanSpend;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
