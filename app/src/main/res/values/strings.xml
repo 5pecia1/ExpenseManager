@@ -1,6 +1,14 @@
 <resources>
-    <string name="money_format">%s 원</string>
+    <string name="default_money_format">%s 원</string>
+    <string name="today_budget_format">오늘 예산 %s 원</string>
+    <string name="month_all_spend">이번달 총 사용 %s 원</string>
+    <string name="day_average_spend_format">평균 %1$s 요일 %2$s 사용</string>
+    <string name="plan_spend_format">계획대비 %1$s 원 %2$s 사용</string>
     
+    <string name="today_left">오늘 남음</string>
+    <string name="month_left">이번달 남음</string>
+
     <string name="app_name">지출부</string>
     <string name="action_settings">설정</string>
+    
 </resources>
