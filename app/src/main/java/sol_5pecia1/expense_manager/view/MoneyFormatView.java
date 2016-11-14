@@ -2,6 +2,7 @@ package sol_5pecia1.expense_manager.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -43,11 +44,11 @@ public class MoneyFormatView extends TextView{
         setMoney(money);
     }
 
-    public void setMoney(Money money) {
+    public void setMoney(@NonNull Money money) {
         setMoney(money, format);
     }
 
-    public void setMoney(Money money, String format) {
+    public void setMoney(@NonNull Money money, @NonNull String format) {
         this.money = money;
         this.format = format;
 
