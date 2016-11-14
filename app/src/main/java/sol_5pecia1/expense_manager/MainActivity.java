@@ -20,9 +20,9 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements MainContract.MainView{
     private final static List<Integer> ICONS = Arrays.asList(
-            R.drawable.ic_more_vert_black_24dp
-            , R.drawable.ic_assignment_black_24dp
-            , R.drawable.ic_add_black_24dp
+            R.drawable.ic_more_vert_white_24dp
+            , R.drawable.ic_assignment_white_24dp
+            , R.drawable.ic_add_white_24dp
     );
     private final static List<Fragment> MAIN_FRAGMENT = Arrays.asList(
             new MainChartFragment()
