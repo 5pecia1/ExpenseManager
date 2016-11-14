@@ -18,6 +18,10 @@ public class Money implements Comparable<Money>{
     private final static int DIVIDE_UNIT = 3;
     private final int money;
 
+    public Money() {
+        this.money = Money.DEFAULT_MONEY;
+    }
+
     public Money(int money) {
         this.money = money;
     }
