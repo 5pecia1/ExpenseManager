@@ -18,15 +18,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainContract.MainView{
     private final static List<Integer> ICONS = Arrays.asList(
             R.drawable.ic_more_vert_black_24dp
             , R.drawable.ic_assignment_black_24dp
             , R.drawable.ic_add_black_24dp
     );
-    private final static List<Class> MAIN_FRAGMENT_CLASSES = Arrays.asList(
-            MainChartFragment.class, MainInformationFragment.class, MainAddFragment.class
+    private final static List<Fragment> MAIN_FRAGMENT = Arrays.asList(
+            new MainChartFragment()
+            , new MainInformationFragment()
+            , new MainAddFragment()
     );
+
     private final static int FIRST_FRAGMENT_LOCATION = 1;
 
     @BindView(R.id.left_day)
@@ -59,8 +62,9 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             tabLayout.getTabAt(i).setIcon(ICONS.get(i));
         }
-    }
 
+        initListener();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,8 +83,33 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
     public void setLeftDay(String day) {
         tvLeftDay.setText(getApplicationContext().getString(R.string.left_day, day));
+    }
+
+
+    private void initListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Fragment currentFragment = sectionsPagerAdapter.getItem(position);
+
+                if (currentFragment instanceof MainAddFragment) {
+                    ((MainAddFragment) currentFragment).showAddDialog();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
 
@@ -92,21 +121,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            Fragment item = null;
-
-            try {
-                item = (Fragment) MAIN_FRAGMENT_CLASSES.get(position).newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            return item;
+            return MAIN_FRAGMENT.get(position);
         }
 
         @Override
         public int getCount() {
-            return MAIN_FRAGMENT_CLASSES.size();
+            return MAIN_FRAGMENT.size();
         }
     }
 }

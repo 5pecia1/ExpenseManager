@@ -5,15 +5,21 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import lombok.Getter;
 import sol_5pecia1.expense_manager.R;
+import sol_5pecia1.expense_manager.data.Money;
 
 /**
  * Created by 5pecia1 on 2016-11-11.
  */
 public class MoneyFormatView extends TextView{
+    public final static String STRING_FORMAT_ARGUMENT = "%s";
     @Getter
-    private String money;
+    private Money money;
+    @Getter
+    private String defaultFormat;
     private String format;
 
     public MoneyFormatView(Context context) {
@@ -25,11 +31,11 @@ public class MoneyFormatView extends TextView{
 
         TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.MoneyFormatView);
 
-        String typedMoney = typedArray.getString(R.styleable.MoneyFormatView_money);
+        float typedMoney = typedArray.getFloat(R.styleable.MoneyFormatView_money, Money.DEFAULT_MONEY);
         String inputFormat = typedArray.getString(R.styleable.MoneyFormatView_format);
 
-        money = (typedMoney == null)? "0" : typedMoney;
-        format = (inputFormat == null)
+        money = new Money(typedMoney);
+        defaultFormat = format = (inputFormat == null)
                 ? context.getString(R.string.default_money_format)
                 : inputFormat;
 
@@ -37,18 +43,26 @@ public class MoneyFormatView extends TextView{
         setMoney(money);
     }
 
-    public void setMoney(String money) {
+    public void setMoney(Money money) {
         setMoney(money, format);
     }
 
-    public void setMoney(String money, String format) {
+    public void setMoney(Money money, String format) {
         this.money = money;
         this.format = format;
 
-        if (format.split("%s").length != 2) { // prevent exception
-            format = String.format(format, money, "%s");
-        }
+        String[] splitFormat = format.split("%.{0,2}s");
 
-        setText(String.format(format, money));
+        if (splitFormat.length > 1) {
+
+            ArrayList<String> args = new ArrayList<>(splitFormat.length - 1);
+            for (int i = 0; i < splitFormat.length - 1; i++) {
+                args.add(money.toString());
+            }
+
+            String[] argsArray = new String[args.size()];
+            argsArray = args.toArray(argsArray);
+            setText(String.format(format, argsArray));
+        }
     }
 }

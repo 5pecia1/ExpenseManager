@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by 5pecia1 on 2016-11-10.
@@ -16,8 +16,11 @@ public class MainAddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_add, container, false);
-        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-        textView.setText("[추가] 개발중...");
+
         return rootView;
+    }
+
+    public void showAddDialog() {
+        Toast.makeText(getContext(), "show!", Toast.LENGTH_SHORT).show(); //null point가 뜬다..
     }
 }

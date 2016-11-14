@@ -2,6 +2,6 @@
 <resources>
     <declare-styleable name="MoneyFormatView">
         <attr name="format" format="string"/>
-        <attr name="money" format="string"/>
+        <attr name="money" format="float"/>
     </declare-styleable>
 </resources>
