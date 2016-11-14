@@ -17,4 +17,7 @@ public interface MainContract {
         void setDayAverageSpend(String day, Money averageSpend);
         void setPlanSpend(Money planSpend, String compare);
     }
+    interface AddView {
+        void showAddDialog();
+    }
 }

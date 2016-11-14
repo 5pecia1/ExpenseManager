@@ -5,12 +5,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import sol_5pecia1.expense_manager.view.InputMoneyDialog;
 
 /**
  * Created by 5pecia1 on 2016-11-10.
  */
-public class MainAddFragment extends Fragment {
+public class MainAddFragment extends Fragment implements MainContract.AddView{
+    private InputMoneyDialog inputMoneyDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -20,7 +22,9 @@ public class MainAddFragment extends Fragment {
         return rootView;
     }
 
+    @Override
     public void showAddDialog() {
-        Toast.makeText(getContext(), "show!", Toast.LENGTH_SHORT).show(); //null point가 뜬다..
+        inputMoneyDialog = new InputMoneyDialog(getActivity());
+        inputMoneyDialog.show();
     }
 }

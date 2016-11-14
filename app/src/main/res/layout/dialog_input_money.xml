@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dialog_padding"
+        >
+        <ImageButton
+            android:id="@+id/sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dialog_item_margin"
+            android:background="@drawable/ic_remove_black_24dp"
+            />
+
+        <sol_5pecia1.expense_manager.view.MoneyFormatView
+            android:id="@+id/displayMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/sign"
+            android:layout_toStartOf="@+id/backspace"
+            android:gravity="right"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/default_drawable_size"
+            android:text="@string/default_money_format"
+             />
+        
+        <ImageButton
+            android:id="@+id/backspace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dialog_item_margin"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_backspace_black_24dp"/>
+
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/keyButtonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/key_button"
+        />
+
+</LinearLayout>

@@ -1,4 +1,7 @@
 <resources>
+    <string name="app_name">지출부</string>
+    <string name="action_settings">설정</string>
+
     <string name="left_day">%s일 남음</string>
     
     <string name="default_money_format">%s원</string>
@@ -10,7 +13,7 @@
     <string name="today_left">오늘 남음</string>
     <string name="month_left">이번달 남음</string>
 
-    <string name="app_name">지출부</string>
-    <string name="action_settings">설정</string>
-    
+    <string name="input_money">금액 입력</string>
+    <string name="input">입력</string>
+    <string name="cancel">취소</string>
 </resources>
