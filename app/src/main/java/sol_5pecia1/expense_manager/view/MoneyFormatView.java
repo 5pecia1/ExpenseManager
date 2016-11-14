@@ -31,7 +31,7 @@ public class MoneyFormatView extends TextView{
 
         TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.MoneyFormatView);
 
-        float typedMoney = typedArray.getFloat(R.styleable.MoneyFormatView_money, Money.DEFAULT_MONEY);
+        int typedMoney = typedArray.getInt(R.styleable.MoneyFormatView_money, Money.DEFAULT_MONEY);
         String inputFormat = typedArray.getString(R.styleable.MoneyFormatView_format);
 
         money = new Money(typedMoney);

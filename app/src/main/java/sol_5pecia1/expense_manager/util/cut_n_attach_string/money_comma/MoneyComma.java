@@ -22,7 +22,7 @@ public class MoneyComma {
 	}
 	
 	private static void checkMoney(String money) throws NotMoneyException {
-		if( !Pattern.matches("([0-9"+ COMMA +"]+(.[0-9]+)?)?", money)){
+		if( !Pattern.matches("([0-9"+ COMMA +"]+(.[0-9]+)?)+", money)){
 			throw new NotMoneyException();
 		}
 	}
@@ -43,7 +43,8 @@ public class MoneyComma {
 	 */
 	public static String makePure(String money) throws NotMoneyException{
 		checkMoney(money);
-		return CutNAttachStringInterval.makePureString(money, COMMA);
+		String result = CutNAttachStringInterval.makePureString(money, COMMA);
+		return result;
 	}
 	
 	/**
@@ -77,8 +78,9 @@ public class MoneyComma {
 		checkMoney(money);
 		checkAppendNumber(appendNumber);
 		
-		String reusultMoney = divide(money + appendNumber, divideUnit);
-		return reusultMoney;
+		String resultMoney = divide(money + appendNumber, divideUnit);
+
+		return resultMoney;
 	}
 	
 	/**
