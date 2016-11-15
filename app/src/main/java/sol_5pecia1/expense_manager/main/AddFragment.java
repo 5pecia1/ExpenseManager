@@ -70,6 +70,8 @@ public class AddFragment extends BaseFragment implements MainContract.AddView{
     public void initView() {
         showAddDialog(null, InputMoneyDialog.NOT_SET);
 
+        mfvAddMoney.setMoney(new Money());
+
         setDefaultClassification();
 
         setDateView(Calendar.getInstance());
