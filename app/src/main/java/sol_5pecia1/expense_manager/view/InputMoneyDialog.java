@@ -13,6 +13,7 @@ import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import lombok.Getter;
 import sol_5pecia1.expense_manager.R;
 import sol_5pecia1.expense_manager.data.Money;
 
@@ -37,6 +38,9 @@ public class InputMoneyDialog extends AlertDialog.Builder {
     Drawable addBlack;
 
     Drawable removeBlack;
+
+    @Getter
+    private boolean positiveClicked = false;
 
 
     public InputMoneyDialog(@NonNull Activity activity) {
@@ -111,6 +115,7 @@ public class InputMoneyDialog extends AlertDialog.Builder {
 
     private void setButtonName() {
         setPositiveButton(R.string.input, (dialog, which) -> {
+            positiveClicked = true;
         });
 
         setNegativeButton(R.string.cancel, (dialog, which) -> {

@@ -145,14 +145,15 @@ public class AddFragment extends BaseFragment implements MainContract.AddView{
         }
 
         inputMoneyDialog.setOnDismissListener(dialog -> {
-            mfvAddMoney.setMoney(inputMoneyDialog.getMoney());
+            if (inputMoneyDialog.isPositiveClicked()) {
+                mfvAddMoney.setMoney(inputMoneyDialog.getMoney());
 
-            if (inputMoneyDialog.getSign() == InputMoneyDialog.INCOME) {
-                rbIncome.setChecked(true);
-            } else if (rbIncome.isChecked()){
-                rbDefault.setChecked(true);
+                if (inputMoneyDialog.getSign() == InputMoneyDialog.INCOME) {
+                    rbIncome.setChecked(true);
+                } else if (rbIncome.isChecked()) {
+                    rbDefault.setChecked(true);
+                }
             }
-
         });
         inputMoneyDialog.show();
     }
