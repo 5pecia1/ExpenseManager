@@ -1,5 +1,6 @@
 package sol_5pecia1.expense_manager.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sol_5pecia1.expense_manager.R;
+import sol_5pecia1.expense_manager.setting.SettingActivity;
 
 public class MainActivity extends AppCompatActivity implements MainContract.MainView{
     private final static List<BaseFragment> MAIN_FRAGMENT = Arrays.asList(
@@ -74,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            Intent i = new Intent(this, SettingActivity.class);
+            startActivity(i);
             return true;
         }
 
