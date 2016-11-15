@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import butterknife.BindArray;
 import butterknife.BindView;
@@ -71,12 +72,7 @@ public class AddFragment extends BaseFragment implements MainContract.AddView{
 
         setDefaultClassification();
 
-        Calendar today = Calendar.getInstance();
-        setDateView(
-                today.get(Calendar.YEAR)
-                , today.get(Calendar.MONTH)
-                , today.get(Calendar.DAY_OF_MONTH)
-        );
+        setDateView(Calendar.getInstance());
 
         etInputThan.setText("");
     }
@@ -95,17 +91,20 @@ public class AddFragment extends BaseFragment implements MainContract.AddView{
     }
 
     @OnClick(R.id.date)
-    void onDateClicked() {
-        Calendar today = Calendar.getInstance();
+    void onDateClicked(TextView view) {
+        long timeMillis = (long)view.getTag();
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTimeInMillis(timeMillis);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 getActivity()
                 , (v, year, month, dayOfMonth) -> {
-                    setDateView(year, month, dayOfMonth);
+                    Calendar cal = new GregorianCalendar(year, month, dayOfMonth);
+                    setDateView(cal);
                 }
-                , today.get(Calendar.YEAR)
-                , today.get(Calendar.MONTH)
-                , today.get(Calendar.DAY_OF_MONTH)
+                , calendar.get(Calendar.YEAR)
+                , calendar.get(Calendar.MONTH)
+                , calendar.get(Calendar.DAY_OF_MONTH)
         );
 
         datePickerDialog.show();
@@ -158,16 +157,17 @@ public class AddFragment extends BaseFragment implements MainContract.AddView{
         inputMoneyDialog.show();
     }
 
-    private void setDateView(int year, int month, int day) {
+    private void setDateView(Calendar calendar) {
         String dateFormat = getContext().getString(R.string.date_format);
         String date = String.format(
                 dateFormat
-                , year
-                , month
-                , day
+                , calendar.get(Calendar.YEAR)
+                , calendar.get(Calendar.MONTH)
+                , calendar.get(Calendar.DAY_OF_MONTH)
         );
 
         tvDate.setText(date);
+        tvDate.setTag(calendar.getTimeInMillis());
     }
 
     private void setDefaultClassification() {
