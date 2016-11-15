@@ -1,4 +1,4 @@
-package sol_5pecia1.expense_manager;
+package sol_5pecia1.expense_manager.main;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -17,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import sol_5pecia1.expense_manager.R;
 
 public class MainActivity extends AppCompatActivity implements MainContract.MainView{
     private final static List<Integer> ICONS = Arrays.asList(

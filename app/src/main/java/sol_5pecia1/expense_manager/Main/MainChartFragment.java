@@ -1,4 +1,4 @@
-package sol_5pecia1.expense_manager;
+package sol_5pecia1.expense_manager.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import sol_5pecia1.expense_manager.R;
 
 /**
  * Created by 5pecia1 on 2016-11-10.

@@ -1,4 +1,4 @@
-package sol_5pecia1.expense_manager;
+package sol_5pecia1.expense_manager.main;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import sol_5pecia1.expense_manager.R;
 import sol_5pecia1.expense_manager.data.Money;
 import sol_5pecia1.expense_manager.view.InputMoneyDialog;
 import sol_5pecia1.expense_manager.view.MoneyFormatView;

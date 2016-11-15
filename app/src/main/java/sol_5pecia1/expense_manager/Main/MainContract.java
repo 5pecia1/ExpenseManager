@@ -1,4 +1,4 @@
-package sol_5pecia1.expense_manager;
+package sol_5pecia1.expense_manager.main;
 
 import sol_5pecia1.expense_manager.data.Money;
 
