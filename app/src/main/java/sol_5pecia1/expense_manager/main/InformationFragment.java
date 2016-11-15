@@ -1,7 +1,6 @@
 package sol_5pecia1.expense_manager.main;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,8 @@ import sol_5pecia1.expense_manager.view.MoneyFormatView;
 /**
  * Created by 5pecia1 on 2016-11-10.
  */
-public class MainInformationFragment extends Fragment implements MainContract.InformationView{
+public class InformationFragment extends BaseFragment implements MainContract.InformationView{
+    private final static int ICON = R.drawable.ic_assignment_white_24dp;
 
     @BindView(R.id.today_budget)
     MoneyFormatView mfvTodayBudget;
@@ -49,6 +49,11 @@ public class MainInformationFragment extends Fragment implements MainContract.In
 
         ButterKnife.bind(this, rootView);
         return rootView;
+    }
+
+    @Override
+    public int getIcon() {
+        return ICON;
     }
 
     @Override

@@ -3,7 +3,6 @@ package sol_5pecia1.expense_manager.main;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,8 @@ import sol_5pecia1.expense_manager.view.MoneyFormatView;
 /**
  * Created by 5pecia1 on 2016-11-10.
  */
-public class MainAddFragment extends Fragment implements MainContract.AddView{
+public class AddFragment extends BaseFragment implements MainContract.AddView{
+    private final static int ICON = R.drawable.ic_add_white_24dp;
     private final static int DEFAULT_EXPENSE = 0;
 
     @BindView(R.id.addMoney)
@@ -58,6 +58,11 @@ public class MainAddFragment extends Fragment implements MainContract.AddView{
         setDefaultClassification();
 
         return rootView;
+    }
+
+    @Override
+    public int getIcon() {
+        return ICON;
     }
 
     @Override
@@ -120,7 +125,7 @@ public class MainAddFragment extends Fragment implements MainContract.AddView{
             rb.setText(item);
             rgClassification.addView(rb);
 
-            if (i == MainAddFragment.DEFAULT_EXPENSE) {
+            if (i == AddFragment.DEFAULT_EXPENSE) {
                 rbDefault = rb;
             } else if (i == classificationItems.length - 1) {
                 rbIncome = rb;

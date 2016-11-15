@@ -20,15 +20,10 @@ import butterknife.ButterKnife;
 import sol_5pecia1.expense_manager.R;
 
 public class MainActivity extends AppCompatActivity implements MainContract.MainView{
-    private final static List<Integer> ICONS = Arrays.asList(
-            R.drawable.ic_more_vert_white_24dp
-            , R.drawable.ic_assignment_white_24dp
-            , R.drawable.ic_add_white_24dp
-    );
-    private final static List<Fragment> MAIN_FRAGMENT = Arrays.asList(
-            new MainChartFragment()
-            , new MainInformationFragment()
-            , new MainAddFragment()
+    private final static List<BaseFragment> MAIN_FRAGMENT = Arrays.asList(
+            new ChartFragment()
+            , new InformationFragment()
+            , new AddFragment()
     );
 
     private final static int FIRST_FRAGMENT_LOCATION = 1;
@@ -60,8 +55,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            tabLayout.getTabAt(i).setIcon(ICONS.get(i));
+
+        for(int i = 0; i < MAIN_FRAGMENT.size(); i++) {
+            tabLayout.getTabAt(i).setIcon(MAIN_FRAGMENT.get(i).getIcon());
         }
 
         initListener();
@@ -101,8 +97,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
             public void onPageSelected(int position) {
                 Fragment currentFragment = sectionsPagerAdapter.getItem(position);
 
-                if (currentFragment instanceof MainAddFragment) {
-                    MainAddFragment addFragment = (MainAddFragment) currentFragment;
+                if (currentFragment instanceof AddFragment) {
+                    AddFragment addFragment = (AddFragment) currentFragment;
                     addFragment.initView();
                 }
             }
