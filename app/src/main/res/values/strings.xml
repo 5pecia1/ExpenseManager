@@ -16,4 +16,29 @@
     <string name="input_money">금액 입력</string>
     <string name="input">입력</string>
     <string name="cancel">취소</string>
+
+    <string name="arrow_cancel">&lt;&lt; 취소</string>
+    <string name="arrow_save">저장 &gt;&gt;</string>
+    <string name="add_money">금액 : %s원</string>
+
+    /**
+    * 수입은 언제나 끝에 있고 하나만 있다.
+    */
+    <string-array name="classification">
+        <item>미분류</item>
+        <item>식비</item>
+        <item>교통비</item>
+        <item>통신비</item>
+        <item>교육/개발</item>
+        <item>문화</item>
+        <item>건강</item>
+        <item>행사</item>
+        <item>주거</item>
+        <item>생활 용품</item>
+        <item>금융 거래</item>
+        <item>수입</item>
+    </string-array>
+
+    <string name="date_format">날짜 : %1$s년 %2$s월 %3$s일</string>
+    <string name="than">내역 : </string>
 </resources>

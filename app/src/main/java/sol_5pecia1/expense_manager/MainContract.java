@@ -18,6 +18,6 @@ public interface MainContract {
         void setPlanSpend(Money planSpend, String compare);
     }
     interface AddView {
-        void showAddDialog();
+        void initView();
     }
 }

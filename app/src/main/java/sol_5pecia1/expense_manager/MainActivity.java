@@ -101,7 +101,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
                 Fragment currentFragment = sectionsPagerAdapter.getItem(position);
 
                 if (currentFragment instanceof MainAddFragment) {
-                    ((MainAddFragment) currentFragment).showAddDialog();
+                    MainAddFragment addFragment = (MainAddFragment) currentFragment;
+                    addFragment.initView();
                 }
             }
 
