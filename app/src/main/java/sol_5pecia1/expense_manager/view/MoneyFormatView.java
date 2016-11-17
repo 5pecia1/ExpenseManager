@@ -23,10 +23,6 @@ public class MoneyFormatView extends TextView{
     private String defaultFormat;
     private String format;
 
-    public MoneyFormatView(Context context) {
-        this(context, null);
-    }
-
     public MoneyFormatView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
 
