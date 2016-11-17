@@ -23,21 +23,19 @@ public class MoneyFormatView extends TextView{
     private String defaultFormat;
     private String format;
 
+    public MoneyFormatView(Context context, AttributeSet attributeSet, int defStyleAttr) {
+        super(context, attributeSet, defStyleAttr);
+        init(attributeSet);
+    }
+
+
     public MoneyFormatView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
+        init(attributeSet);
+    }
 
-        TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.MoneyFormatView);
-
-        int typedMoney = typedArray.getInt(R.styleable.MoneyFormatView_money, Money.DEFAULT_MONEY);
-        String inputFormat = typedArray.getString(R.styleable.MoneyFormatView_format);
-
-        money = new Money(typedMoney);
-        defaultFormat = format = (inputFormat == null)
-                ? context.getString(R.string.default_money_format)
-                : inputFormat;
-
-
-        setMoney(money);
+    public MoneyFormatView(Context context) {
+        this(context, null);
     }
 
     public void setMoney(@NonNull Money money) {
@@ -61,5 +59,20 @@ public class MoneyFormatView extends TextView{
             argsArray = args.toArray(argsArray);
             setText(String.format(format, argsArray));
         }
+    }
+
+    private void init(AttributeSet attributeSet) {
+        TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.MoneyFormatView);
+
+        int typedMoney = typedArray.getInt(R.styleable.MoneyFormatView_money, Money.DEFAULT_MONEY);
+        String inputFormat = typedArray.getString(R.styleable.MoneyFormatView_format);
+
+        money = new Money(typedMoney);
+        defaultFormat = format = (inputFormat == null)
+                ? getContext().getString(R.string.default_money_format)
+                : inputFormat;
+
+
+        setMoney(money);
     }
 }
