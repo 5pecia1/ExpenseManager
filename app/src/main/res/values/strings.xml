@@ -2,6 +2,7 @@
     <string name="app_name">지출부</string>
     <string name="setting">설정</string>
 
+    <string name="default_day_format">%s일</string>
     <string name="left_day">%s일 남음</string>
     
     <string name="default_money_format">%s원</string>
@@ -41,4 +42,19 @@
 
     <string name="date_format">날짜 : %1$s년 %2$s월 %3$s일</string>
     <string name="than">내역 : </string>
+
+    <string name="main_setting">메인 설정</string>
+    <string-array name="days">
+        <item>1</item><item>2</item><item>3</item><item>4</item><item>5</item>
+        <item>6</item><item>7</item><item>8</item><item>9</item><item>10</item>
+        <item>11</item><item>12</item><item>13</item><item>14</item><item>15</item>
+        <item>16</item><item>17</item><item>18</item><item>19</item><item>20</item>
+        <item>21</item><item>22</item><item>23</item><item>24</item><item>25</item>
+        <item>26</item><item>27</item><item>28</item><item>29</item><item>30</item>
+        <item>달의 마지막</item>
+    </string-array>
+    
+    <string name="settlement_day">결산 일</string>
+    
+    <string name="preference_settlement_day">settlement</string>
 </resources>

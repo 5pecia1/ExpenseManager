@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import android.support.v7.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.Toast;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,69 +16,45 @@ import sol_5pecia1.expense_manager.R;
  */
 public class StringArrayPickerPreference extends DialogPreference {
 
-
-    private final static String DEFAULT_VALUE = "1";
+    private final static int DEFAULT_VALUE = 0;
     private final static String DEFAULT_SUMMARY = "";
+
     @Getter @Setter
     private String[] items;
     private String summaryFormat;
-
-    public StringArrayPickerPreference(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(attrs);
-    }
-
-    public StringArrayPickerPreference(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(attrs);
-    }
+    @Getter
+    private int selectedIndex;
+    private int dialogLayoutResId = R.layout.preference_number_picker;
 
     public StringArrayPickerPreference(Context context) {
-
         this(context, null);
     }
-
-    @Override
-    protected Object onGetDefaultValue(TypedArray a, int index) {
-        return super.onGetDefaultValue(a, index);
+    public StringArrayPickerPreference(Context context, AttributeSet attrs) {
+        this(context, attrs, R.attr.dialogPreferenceStyle);
     }
-
-    @Override
-    protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
-        Log.e("Test","restorePersistedValue : " + restorePersistedValue + "\ndefaultValue : " + defaultValue );
-//        if (restorePersistedValue) {
-//            setDefaultValue(StringArrayPickerPreference.DEFAULT_VALUE);
-//        } else {
-//        }
+    public StringArrayPickerPreference(Context context, AttributeSet attrs
+            , int defStyleAttr) {
+        this(context, attrs, defStyleAttr, defStyleAttr);
     }
+    public StringArrayPickerPreference(Context context, AttributeSet attrs
+            , int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        setDialogLayoutResource(R.layout.dialog_input_money);
 
-    @Override
-    public boolean shouldDisableDependents() {
-        return super.shouldDisableDependents();
-    }
-
-    @Override
-    protected Parcelable onSaveInstanceState() {
-        return super.onSaveInstanceState();
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        super.onRestoreInstanceState(state);
-    }
-
-    private void init(AttributeSet attributeSet) {
         TypedArray typedArray = getContext().obtainStyledAttributes(
-                attributeSet
+                attrs
                 , R.styleable.StringArrayPickerPreference
         );
 
-        final int id = typedArray.getResourceId(R.styleable.StringArrayPickerPreference_items, 0);
-        String summary = getSummary().toString();
+        int id = typedArray.getResourceId(
+                R.styleable.StringArrayPickerPreference_items
+                , 0
+        );
+        CharSequence summary = getSummary();
 
         summaryFormat = (summary == null)
                 ? StringArrayPickerPreference.DEFAULT_SUMMARY
-                : summary;
+                : summary.toString();
 
         String[] items = (id  != 0)
                 ? getContext().getResources().getStringArray(id)
@@ -90,8 +65,33 @@ public class StringArrayPickerPreference extends DialogPreference {
         typedArray.recycle();
     }
 
-    public void updatePreference(String s) {
-        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+    @Override
+    protected Object onGetDefaultValue(TypedArray a, int index) {
+        return a.getInt(index, DEFAULT_VALUE);
     }
 
+    @Override
+    protected void onSetInitialValue(boolean restorePersistedValue
+            , Object defaultValue) {
+        setSelectedIndex(restorePersistedValue
+                ? getPersistedInt(selectedIndex)
+                : (int)defaultValue
+        );
+    }
+
+    @Override
+    public int getDialogLayoutResource() {
+        return dialogLayoutResId;
+    }
+
+    public String getSelectedItem() {
+        return items[getSelectedIndex()];
+    }
+
+    protected void setSelectedIndex(int index) {
+        selectedIndex = index;
+        persistInt(index);
+
+        setSummary(String.format(summaryFormat, getSelectedItem()));
+    }
 }

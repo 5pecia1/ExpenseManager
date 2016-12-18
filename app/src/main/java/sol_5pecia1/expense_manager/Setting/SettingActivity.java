@@ -1,12 +1,10 @@
 package sol_5pecia1.expense_manager.setting;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import sol_5pecia1.expense_manager.R;
 
 /**
@@ -14,15 +12,13 @@ import sol_5pecia1.expense_manager.R;
  */
 public class SettingActivity extends AppCompatActivity {
 
-    @BindView(R.id.settingList)
-    RecyclerView rvSettingList;
-
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        ButterKnife.bind(this);
 
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
+
 }

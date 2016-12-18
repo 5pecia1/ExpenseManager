@@ -22,7 +22,7 @@
         </activity>
         <activity android:name=".setting.SettingActivity"
             android:label="@string/setting"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 

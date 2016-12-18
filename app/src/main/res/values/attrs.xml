@@ -4,4 +4,7 @@
         <attr name="format" format="string"/>
         <attr name="money" format="integer"/>
     </declare-styleable>
+    <declare-styleable name="StringArrayPickerPreference">
+        <attr name="items" format="reference"/>
+    </declare-styleable>
 </resources>

@@ -2,67 +2,76 @@ package sol_5pecia1.expense_manager.view.preference;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
+import android.support.v7.preference.DialogPreference;
 import android.support.v7.preference.PreferenceDialogFragmentCompat;
-import android.view.Gravity;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.view.View;
 import android.widget.NumberPicker;
+
+import sol_5pecia1.expense_manager.R;
 
 /**
  * Created by 5pecia1 on 2016-11-19.
  */
-public class StringArrayPickerPreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat {
-    private final static String ITEMS_KEY = "items";
-    private NumberPicker picker;
+public class StringArrayPickerPreferenceDialogFragmentCompat
+        extends PreferenceDialogFragmentCompat {
+    NumberPicker numberPicker;
 
     public static StringArrayPickerPreferenceDialogFragmentCompat newInstance(
-            @NonNull StringArrayPickerPreference preference
-            , @NonNull String[] items) {
-        StringArrayPickerPreferenceDialogFragmentCompat fragment = new StringArrayPickerPreferenceDialogFragmentCompat();
+            @NonNull String key) {
+        final StringArrayPickerPreferenceDialogFragmentCompat fragment
+                = new StringArrayPickerPreferenceDialogFragmentCompat();
         Bundle bundle = new Bundle();
-        bundle.putString(PreferenceDialogFragmentCompat.ARG_KEY, preference.getKey());
-        bundle.putStringArray(StringArrayPickerPreferenceDialogFragmentCompat.ITEMS_KEY, items);
-        fragment.setArguments(bundle);//TODO 필요한 값 설정하고 getArguments로 얻기, getpreference로 값 가져오기
+        bundle.putString(ARG_KEY, key);
+        fragment.setArguments(bundle);
 
         return fragment;
     }
 
     @Override
-    protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
-        super.onPrepareDialogBuilder(builder);
+    protected void onBindDialogView(View view) {
+        super.onBindDialogView(view);
+        numberPicker = (NumberPicker)view.findViewById(R.id.numberPicker);
 
-        String[] items = getArguments().getStringArray(StringArrayPickerPreferenceDialogFragmentCompat.ITEMS_KEY);
+        if (numberPicker == null) {
+            throw new IllegalStateException("Dialog view must contain" +
+                " a NumberPicker with id 'edit'");
+        }
 
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = Gravity.CENTER;
+        int selectedIndex = -1;
+        String[] items = null;
+        DialogPreference preference = getPreference();
+        if (preference instanceof StringArrayPickerPreference) {
+            selectedIndex
+                    = ((StringArrayPickerPreference) preference)
+                    .getSelectedIndex();
+            items = ((StringArrayPickerPreference) preference).getItems();
+        }
 
-        picker = new NumberPicker(getContext());
+        if (items  != null) {
+            numberPicker.setMinValue(0);
+            numberPicker.setMaxValue(items.length - 1);
+            numberPicker.setWrapSelectorWheel(false);
+            numberPicker.setDisplayedValues(items);
+        }
 
-        picker.setLayoutParams(layoutParams);
-        picker.setMinValue(0);
-        picker.setMaxValue(items.length - 1);
-        picker.setWrapSelectorWheel(false);
-        picker.setDisplayedValues(items);
 
-        builder.setView(picker);
-
+        if (selectedIndex  != -1) {
+            numberPicker.setValue(selectedIndex);
+        }
     }
-
-    public StringArrayPickerPreference getStringArrayPickerPreference() {
-        return (StringArrayPickerPreference)super.getPreference();
-    }
-
-    @Override
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
-            String[] items = getArguments().getStringArray(StringArrayPickerPreferenceDialogFragmentCompat.ITEMS_KEY);
-            String value = items != null ? items[picker.getValue()] : null;
-            StringArrayPickerPreference preference = getStringArrayPickerPreference();
+            DialogPreference preference = getPreference();
 
-            if (preference.callChangeListener(value)) {
-                //TODO
+            if (preference instanceof StringArrayPickerPreference) {
+                StringArrayPickerPreference stringArrayPickerPreference
+                        = (StringArrayPickerPreference) preference;
+
+                int value = numberPicker.getValue();
+
+                if (preference.callChangeListener(value)) {
+                    stringArrayPickerPreference.setSelectedIndex(value);
+                }
             }
         }
     }
