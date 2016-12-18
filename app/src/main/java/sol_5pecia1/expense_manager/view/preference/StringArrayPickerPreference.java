@@ -17,7 +17,7 @@ import sol_5pecia1.expense_manager.R;
 public class StringArrayPickerPreference extends DialogPreference {
 
     private final static int DEFAULT_VALUE = 0;
-    private final static String DEFAULT_SUMMARY = "";
+    private final static String DEFAULT_SUMMARY = "%s";
 
     @Getter @Setter
     private String[] items;
