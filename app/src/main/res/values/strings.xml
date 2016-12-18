@@ -55,6 +55,12 @@
     </string-array>
     
     <string name="settlement_day">결산 일</string>
-    
+    <string name="month_budget">한달 총 예산</string>
+    <string name="day_of_weekdays_budget">주중 일일 예산</string>
+    <string name="day_of_weekend_budget">주말 일일 예산</string>
+
     <string name="preference_settlement_day">settlement</string>
+    <string name="preference_month_budget">month_budget</string>
+    <string name="preference_day_of_weekdays_budget">day_of_weekdays_budget"</string>
+    <string name="preference_day_of_weekend_budget">day_of_weekend_budget"</string>
 </resources>
