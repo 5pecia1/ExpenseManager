@@ -6,6 +6,8 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 
 import sol_5pecia1.expense_manager.R;
+import sol_5pecia1.expense_manager.view.preference.MoneyEditTextPreference;
+import sol_5pecia1.expense_manager.view.preference.MoneyEditTextPreferenceDialogFragmentCompat;
 import sol_5pecia1.expense_manager.view.preference.StringArrayPickerPreference;
 import sol_5pecia1.expense_manager.view.preference.StringArrayPickerPreferenceDialogFragmentCompat;
 
@@ -26,6 +28,10 @@ public class SettingFragment extends PreferenceFragmentCompat {
         if (preference instanceof StringArrayPickerPreference) {
             dialogFragment
                     = StringArrayPickerPreferenceDialogFragmentCompat
+                    .newInstance(preference.getKey());
+        } else if (preference instanceof MoneyEditTextPreference) {
+            dialogFragment
+                    = MoneyEditTextPreferenceDialogFragmentCompat
                     .newInstance(preference.getKey());
         }
 

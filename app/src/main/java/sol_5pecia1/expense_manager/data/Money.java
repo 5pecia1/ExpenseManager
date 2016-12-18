@@ -12,10 +12,13 @@ import sol_5pecia1.expense_manager.util.cut_n_attach_string.money_comma.exceptio
  */
 @Data
 public class Money implements Comparable<Money>{
-    public  final static int DEFAULT_MONEY = 0;
+    public final static int DEFAULT_MONEY = 0;
+    public final static int MAX_LENGTH = 9;
+    public final static int DIVIDE_UNIT = 3;
 
-    private final static int MAX = 11; //contain comma
-    private final static int DIVIDE_UNIT = 3;
+    private final static int MAX_STRING_LENGTH = MAX_LENGTH
+            + (MAX_LENGTH / DIVIDE_UNIT - 1)
+            + (MAX_LENGTH % DIVIDE_UNIT  != 0 ? 1 : 0); //contain comma
     private final int money;
 
     public Money() {
@@ -47,7 +50,7 @@ public class Money implements Comparable<Money>{
     public Money append(@NonNull String money) {
         Money result = this;
 
-        if ( !(this.toString().length() + money.length() > Money.MAX)) {
+        if ( !(this.toString().length() + money.length() > Money.MAX_STRING_LENGTH)) {
             try {
                 result = new Money(MoneyComma.append(this.toString(), Money.DIVIDE_UNIT, money));
             } catch (NotMoneyException | InvalidNumberException e) {
