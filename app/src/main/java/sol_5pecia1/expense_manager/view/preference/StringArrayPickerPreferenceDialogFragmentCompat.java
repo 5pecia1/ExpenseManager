@@ -14,7 +14,7 @@ import sol_5pecia1.expense_manager.R;
  */
 public class StringArrayPickerPreferenceDialogFragmentCompat
         extends PreferenceDialogFragmentCompat {
-    NumberPicker numberPicker;
+    private NumberPicker numberPicker;
 
     public static StringArrayPickerPreferenceDialogFragmentCompat newInstance(
             @NonNull String key) {
@@ -59,6 +59,7 @@ public class StringArrayPickerPreferenceDialogFragmentCompat
             numberPicker.setValue(selectedIndex);
         }
     }
+
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
             DialogPreference preference = getPreference();
