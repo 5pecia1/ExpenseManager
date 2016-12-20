@@ -43,7 +43,7 @@
         <item>수입</item>
     </string-array>
 
-    <string name="date_format">날짜 : %1$s년 %2$s월 %3$s일</string>
+    <string name="date_format">날짜 : %1$d년 %2$d월 %3$d일</string>
     <string name="than">내역 : </string>
 
     <string name="main_setting">메인 설정</string>
