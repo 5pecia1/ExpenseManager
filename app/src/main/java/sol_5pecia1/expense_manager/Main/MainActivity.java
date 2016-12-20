@@ -2,6 +2,7 @@ package sol_5pecia1.expense_manager.main;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -64,8 +65,9 @@ public class MainActivity extends AppCompatActivity
 
         SharedPreferences preferences
                 = PreferenceManager.getDefaultSharedPreferences(this);
-
-        presenter = new MainPresenter(this, new Configure(preferences));
+        Resources resources = getResources();
+        Configure configure = new Configure(preferences, resources);
+        presenter = new MainPresenter(this, configure);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -97,11 +99,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        String settlementKey =
-                getResources().getString(R.string.preference_settlement_day);
-        String[] dayItems = getResources().getStringArray(R.array.days);
-
-        presenter.setLeftDay(settlementKey, dayItems);
+        presenter.setLeftDay();
     }
 
     @Override
@@ -143,9 +141,10 @@ public class MainActivity extends AppCompatActivity
             public void onPageSelected(int position) {
                 Fragment currentFragment = sectionsPagerAdapter.getItem(position);
 
-                if (currentFragment instanceof AddFragment) {
-                    AddFragment addFragment = (AddFragment) currentFragment;
-                    addFragment.initView();
+                if (currentFragment instanceof InformationFragment) {
+                    ((InformationFragment) currentFragment).refreshViw();
+                } else if (currentFragment instanceof AddFragment) {
+                    ((AddFragment) currentFragment).initView();
                 }
             }
 

@@ -1,6 +1,9 @@
 package sol_5pecia1.expense_manager.main;
 
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,7 @@ import android.widget.ProgressBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sol_5pecia1.expense_manager.R;
+import sol_5pecia1.expense_manager.data.Configure;
 import sol_5pecia1.expense_manager.data.Money;
 import sol_5pecia1.expense_manager.view.MoneyFormatView;
 
@@ -42,18 +46,36 @@ public class InformationFragment extends BaseFragment implements MainContract.In
     @BindView(R.id.plan_spend)
     MoneyFormatView mfvPlanSpend;
 
+    private InformationPresenter presenter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_information_main, container, false);
 
+        SharedPreferences preferences
+                = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Resources resources = getResources();
+        Configure configure = new Configure(preferences, resources);
+        presenter = new InformationPresenter(this, configure);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        refreshViw();
+    }
+
+    @Override
     public int getIcon() {
         return ICON;
+    }
+
+    @Override
+    public void refreshViw() {
+        presenter.setTodayBudget();
     }
 
     @Override

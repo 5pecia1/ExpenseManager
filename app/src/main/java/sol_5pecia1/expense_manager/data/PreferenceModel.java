@@ -5,6 +5,7 @@ package sol_5pecia1.expense_manager.data;
  */
 
 public interface PreferenceModel {
-    int getWeekdayBudget();
+    Money getWeekdayBudget();
+    Money getWeekendBudget();
     int getLeftDay();
 }

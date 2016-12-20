@@ -25,8 +25,26 @@ public class Configure implements PreferenceModel {
     }
 
     @Override
-    public int getWeekdayBudget() {
-        return 0;
+    public Money getWeekdayBudget() {
+        String weekdayBudgetKey
+                = resources.getString(R.string.preference_weekday_budget);
+        String weekdayBudget
+                = preferences.getString(weekdayBudgetKey
+                , new Money().toString()
+        );
+
+        return new Money(weekdayBudget);
+    }
+
+    @Override
+    public Money getWeekendBudget() {
+        String weekendBudgetKey
+                = resources.getString(R.string.preference_weekend_budget);
+        String weekednBudget
+                = preferences.getString(weekendBudgetKey
+                , new Money().toString());
+
+        return new Money(weekednBudget);
     }
 
     @Override

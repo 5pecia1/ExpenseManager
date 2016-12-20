@@ -10,6 +10,7 @@ public interface MainContract {
         void setLeftDay(String day);
     }
     interface InformationView {
+        void refreshViw();
         void setTodayBudget(Money todayBudget);
         void setTodayLeft(Money todayBudget, Money todayLeft);
         void setMonthLeft(Money monthBudget, Money monthLeft);
@@ -22,6 +23,10 @@ public interface MainContract {
     }
 
     interface MainActionListener {
-        void setLeftDay(String settlementKey, String[] dayItems);
+        void setLeftDay();
+    }
+
+    interface InformationListener {
+        void setTodayBudget();
     }
 }
