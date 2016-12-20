@@ -53,19 +53,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/than"
+            android:id="@+id/besides"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerHorizontal="true"
-            android:text="@string/than"
+            android:text="@string/besides"
             />
         <EditText
-            android:id="@+id/inputThan"
+            android:id="@+id/inputBesides"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/than"
+            android:layout_toEndOf="@+id/besides"
             />
     </RelativeLayout>
 </LinearLayout>

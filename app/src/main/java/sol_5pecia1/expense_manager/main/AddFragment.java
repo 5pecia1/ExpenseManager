@@ -39,8 +39,8 @@ public class AddFragment extends BaseFragment implements MainContract.AddView{
     @BindView(R.id.date)
     TextView tvDate;
 
-    @BindView(R.id.inputThan)
-    EditText etInputThan;
+    @BindView(R.id.inputBesides)
+    EditText etInputBesides;
 
     @BindArray(R.array.classification)
     String[] classificationItems;
@@ -76,7 +76,7 @@ public class AddFragment extends BaseFragment implements MainContract.AddView{
 
         setDateView(Calendar.getInstance());
 
-        etInputThan.setText("");
+        etInputBesides.setText("");
     }
 
     @OnClick(R.id.addMoney)
