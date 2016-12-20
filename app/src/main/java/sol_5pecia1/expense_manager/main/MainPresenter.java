@@ -18,11 +18,9 @@ public class MainPresenter implements MainContract.MainActionListener {
         this.preferenceModel = preferenceModel;
     }
     @Override
-    public void setLeftDay(String settlementKey, String[] dayItems) {
+    public void setLeftDay() {
         mainView.setLeftDay(
-                String.valueOf(
-                        preferenceModel.getLeftDay(settlementKey, dayItems)
-                )
+                String.valueOf(preferenceModel.getLeftDay())
         );
     }
 }

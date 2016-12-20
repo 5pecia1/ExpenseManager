@@ -5,5 +5,6 @@ package sol_5pecia1.expense_manager.data;
  */
 
 public interface PreferenceModel {
-    int getLeftDay(String settlementKey, String[] dayItems);
+    int getWeekdayBudget();
+    int getLeftDay();
 }

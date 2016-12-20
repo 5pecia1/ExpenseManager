@@ -1,12 +1,14 @@
 package sol_5pecia1.expense_manager.data;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import sol_5pecia1.expense_manager.R;
 import sol_5pecia1.expense_manager.view.preference.StringArrayPickerPreference;
 
 /**
@@ -14,14 +16,26 @@ import sol_5pecia1.expense_manager.view.preference.StringArrayPickerPreference;
  */
 public class Configure implements PreferenceModel {
     private SharedPreferences preferences;
+    private Resources resources;
 
-    public Configure(@NonNull SharedPreferences preferences) {
+    public Configure(@NonNull SharedPreferences preferences
+            , @NonNull Resources resources) {
         this.preferences = preferences;
+        this.resources = resources;
     }
 
     @Override
-    public int getLeftDay(String settlementKey, String[] dayItems) {
+    public int getWeekdayBudget() {
+        return 0;
+    }
+
+    @Override
+    public int getLeftDay() {
         Calendar currentCalender = GregorianCalendar.getInstance();
+
+        String settlementKey =
+                resources.getString(R.string.preference_settlement_day);
+        String[] dayItems = resources.getStringArray(R.array.days);
 
         int settlementIndex
                 = preferences.getInt(

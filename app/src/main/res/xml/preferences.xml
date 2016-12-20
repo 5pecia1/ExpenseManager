@@ -18,15 +18,15 @@
             android:defaultValue="0"
             />
         <sol_5pecia1.expense_manager.view.preference.MoneyEditTextPreference
-            android:key="@string/preference_day_of_weekdays_budget"
+            android:key="@string/preference_weekday_budget"
             android:summary="@string/default_money_format"
-            android:title="@string/day_of_weekdays_budget"
+            android:title="@string/weekday_budget"
             android:defaultValue="0"
             />
         <sol_5pecia1.expense_manager.view.preference.MoneyEditTextPreference
             android:key="@string/preference_day_of_weekend_budget"
             android:summary="@string/default_money_format"
-            android:title="@string/day_of_weekend_budget"
+            android:title="@string/weekend_budget"
             android:defaultValue="0"
             />
     </android.support.v7.preference.PreferenceCategory>
