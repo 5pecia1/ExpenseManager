@@ -1,6 +1,7 @@
 package sol_5pecia1.expense_manager.main;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -28,6 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sol_5pecia1.expense_manager.R;
+import sol_5pecia1.expense_manager.data.Configure;
 import sol_5pecia1.expense_manager.setting.SettingActivity;
 
 public class MainActivity extends AppCompatActivity
@@ -51,16 +53,22 @@ public class MainActivity extends AppCompatActivity
 
     private SectionsPagerAdapter sectionsPagerAdapter;
 
+    private MainPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        SharedPreferences preferences
+                = PreferenceManager.getDefaultSharedPreferences(this);
+
+        presenter = new MainPresenter(this, new Configure(preferences));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        setLeftDay("00");
 
         sectionsPagerAdapter
                 = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -79,14 +87,21 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-
         for(int i = 0; i < MAIN_FRAGMENT.size(); i++) {
             tabLayout.getTabAt(i).setIcon(MAIN_FRAGMENT.get(i).getIcon());
         }
 
         initListener();
+    }
 
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String settlementKey =
+                getResources().getString(R.string.preference_settlement_day);
+        String[] dayItems = getResources().getStringArray(R.array.days);
+
+        presenter.setLeftDay(settlementKey, dayItems);
     }
 
     @Override
@@ -97,6 +112,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
@@ -119,16 +135,13 @@ public class MainActivity extends AppCompatActivity
     private void initListener() {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position
-                    , float positionOffset
-                    , int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
 
             @Override
             public void onPageSelected(int position) {
-                Fragment currentFragment
-                        = sectionsPagerAdapter.getItem(position);
+                Fragment currentFragment = sectionsPagerAdapter.getItem(position);
 
                 if (currentFragment instanceof AddFragment) {
                     AddFragment addFragment = (AddFragment) currentFragment;
@@ -145,7 +158,7 @@ public class MainActivity extends AppCompatActivity
         refreshLayout.setRefreshCallback(new RefreshCallBack() {
             @Override
             public void onLeftRefreshing() {
-                
+
             }
 
             @Override
@@ -157,7 +170,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-
 
     private class SectionsPagerAdapter extends FragmentPagerAdapter {
 

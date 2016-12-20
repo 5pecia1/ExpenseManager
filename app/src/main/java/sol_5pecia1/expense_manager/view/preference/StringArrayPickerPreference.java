@@ -15,8 +15,8 @@ import sol_5pecia1.expense_manager.R;
  * Created by 5pecia1 on 2016-11-17.
  */
 public class StringArrayPickerPreference extends DialogPreference {
+    public final static int DEFAULT_VALUE = 0;
 
-    private final static int DEFAULT_VALUE = 0;
     private final static String DEFAULT_SUMMARY = "%s";
 
     @Getter @Setter

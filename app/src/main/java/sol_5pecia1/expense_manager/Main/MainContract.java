@@ -20,4 +20,8 @@ public interface MainContract {
     interface AddView {
         void initView();
     }
+
+    interface MainActionListener {
+        void setLeftDay(String settlementKey, String[] dayItems);
+    }
 }
