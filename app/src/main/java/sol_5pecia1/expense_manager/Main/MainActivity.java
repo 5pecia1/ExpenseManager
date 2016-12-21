@@ -31,6 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import sol_5pecia1.expense_manager.R;
 import sol_5pecia1.expense_manager.data.Configure;
+import sol_5pecia1.expense_manager.data.PreferenceModel;
 import sol_5pecia1.expense_manager.setting.SettingActivity;
 
 public class MainActivity extends AppCompatActivity
@@ -66,8 +67,8 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences preferences
                 = PreferenceManager.getDefaultSharedPreferences(this);
         Resources resources = getResources();
-        Configure configure = new Configure(preferences, resources);
-        presenter = new MainPresenter(this, configure);
+        PreferenceModel preferenceModel = new Configure(preferences, resources);
+        presenter = new MainPresenter(this, preferenceModel);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

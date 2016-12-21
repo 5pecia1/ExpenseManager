@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import sol_5pecia1.expense_manager.R;
 import sol_5pecia1.expense_manager.data.Configure;
 import sol_5pecia1.expense_manager.data.Money;
+import sol_5pecia1.expense_manager.data.PreferenceModel;
 import sol_5pecia1.expense_manager.view.MoneyFormatView;
 
 /**
@@ -56,8 +57,8 @@ public class InformationFragment extends BaseFragment implements MainContract.In
         SharedPreferences preferences
                 = PreferenceManager.getDefaultSharedPreferences(getContext());
         Resources resources = getResources();
-        Configure configure = new Configure(preferences, resources);
-        presenter = new InformationPresenter(this, configure);
+        PreferenceModel preferenceModel = new Configure(preferences, resources);
+        presenter = new InformationPresenter(this, preferenceModel);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
