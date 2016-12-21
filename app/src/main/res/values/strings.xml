@@ -21,8 +21,9 @@
     <string name="arrow_cancel">&lt;&lt; 취소</string>
     <string name="arrow_save">저장 &gt;&gt;</string>
     <string name="add_money">금액 : %s원</string>
-    <string name="want_save">저장 하시겠습니까?</string>
+    <string name="want_save">저장\n하시겠\n습니까?</string>
     <string name="save">저장</string>
+    <string name="saving">저장 중</string>
     <string name="save_finish">저장 완료</string>
 
     /**

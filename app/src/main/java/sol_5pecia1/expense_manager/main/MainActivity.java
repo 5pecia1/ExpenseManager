@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public void onRefreshing(View view) {
-            textView.setText(R.string.save);
+            textView.setText(R.string.saving);
         }
     }
 }
