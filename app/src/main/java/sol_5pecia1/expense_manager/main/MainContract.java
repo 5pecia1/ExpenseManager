@@ -1,5 +1,9 @@
 package sol_5pecia1.expense_manager.main;
 
+import android.support.annotation.NonNull;
+
+import java.util.Calendar;
+
 import sol_5pecia1.expense_manager.data.Money;
 
 /**
@@ -20,6 +24,7 @@ public interface MainContract {
     }
     interface AddView {
         void initView();
+        void save();
     }
 
     interface MainActionListener {
@@ -28,5 +33,10 @@ public interface MainContract {
 
     interface InformationListener {
         void setTodayBudget();
+    }
+
+    interface AddListenter {
+        void save(@NonNull Money money, @NonNull String classification
+            , @NonNull Calendar saveDate, @NonNull String besides);
     }
 }

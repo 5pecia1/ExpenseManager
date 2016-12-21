@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity
             , new AddFragment()
     );
 
-    private final static int FIRST_FRAGMENT_LOCATION = 1;
+    private final static int FIRST_FRAGMENT_POSITION = 1;
+    private final static int ADD_FRAGMENT_POSITION = 2;
 
     @BindView(R.id.left_day)
     TextView tvLeftDay;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity
                 = new SectionsPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(sectionsPagerAdapter);
-        viewPager.setCurrentItem(FIRST_FRAGMENT_LOCATION);
+        viewPager.setCurrentItem(FIRST_FRAGMENT_POSITION);
 
         refreshLayout.setEnable(true);
         refreshLayout.setRefreshMode(
@@ -134,7 +135,9 @@ public class MainActivity extends AppCompatActivity
     private void initListener() {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position
+                    , float positionOffset
+                    , int positionOffsetPixels) {
 
             }
 
@@ -165,7 +168,7 @@ public class MainActivity extends AppCompatActivity
             public void onRightRefreshing() {
                 refreshLayout.postDelayed(() -> {
                     refreshLayout.onRefreshComplete();
-                    viewPager.setCurrentItem(FIRST_FRAGMENT_LOCATION);
+                    viewPager.setCurrentItem(FIRST_FRAGMENT_POSITION);
                 }, 100);
             }
         });
@@ -229,6 +232,11 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onRefreshing(View view) {
             textView.setText(R.string.saving);
+
+            MainContract.AddView addView
+                    = (MainContract.AddView)
+                    MAIN_FRAGMENT.get(ADD_FRAGMENT_POSITION);
+            addView.save();
         }
     }
 }

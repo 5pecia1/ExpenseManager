@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sol_5pecia1.expense_manager.R;
+import sol_5pecia1.expense_manager.data.Account;
 import sol_5pecia1.expense_manager.data.Money;
 import sol_5pecia1.expense_manager.view.InputMoneyDialog;
 import sol_5pecia1.expense_manager.view.MoneyFormatView;
@@ -26,7 +27,7 @@ import sol_5pecia1.expense_manager.view.MoneyFormatView;
 /**
  * Created by 5pecia1 on 2016-11-10.
  */
-public class AddFragment extends BaseFragment implements MainContract.AddView{
+public class AddFragment extends BaseFragment implements MainContract.AddView {
     private final static int ICON = R.drawable.ic_add_white_24dp;
     private final static int DEFAULT_EXPENSE = 0;
 
@@ -48,11 +49,15 @@ public class AddFragment extends BaseFragment implements MainContract.AddView{
     private RadioButton rbDefault;
     private RadioButton rbIncome;
 
+    private AddPresenter presenter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_add, container, false);
         ButterKnife.bind(this, rootView);
+
+        presenter = new AddPresenter(this, new Account(getActivity()));
 
         addRadioButton();
 
@@ -79,10 +84,27 @@ public class AddFragment extends BaseFragment implements MainContract.AddView{
         etInputBesides.setText("");
     }
 
+    @Override
+    public void save() {
+        int clickedRadioButtonId = rgClassification.getCheckedRadioButtonId();
+        RadioButton clicked
+                = (RadioButton) rgClassification
+                .findViewById(clickedRadioButtonId);
+
+        Money money = mfvAddMoney.getMoney();
+        String classification = clicked.getText().toString();
+        Calendar date = (Calendar) tvDate.getTag();
+        String besides = etInputBesides.getText().toString();
+
+        presenter.save(money, classification, date, besides);
+    }
+
     @OnClick(R.id.addMoney)
     void onAddMoneyClicked() {
         int clickedRadioButtonId = rgClassification.getCheckedRadioButtonId();
-        RadioButton clicked = (RadioButton) rgClassification.findViewById(clickedRadioButtonId);
+        RadioButton clicked
+                = (RadioButton) rgClassification
+                .findViewById(clickedRadioButtonId);
 
         @InputMoneyDialog.SignType
         int sign = (clicked == rbIncome)
@@ -94,9 +116,7 @@ public class AddFragment extends BaseFragment implements MainContract.AddView{
 
     @OnClick(R.id.date)
     void onDateClicked(TextView view) {
-        long timeMillis = (long)view.getTag();
-        Calendar calendar = GregorianCalendar.getInstance();
-        calendar.setTimeInMillis(timeMillis);
+        Calendar calendar = (Calendar)view.getTag();
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 getActivity()
@@ -169,7 +189,7 @@ public class AddFragment extends BaseFragment implements MainContract.AddView{
         );
 
         tvDate.setText(date);
-        tvDate.setTag(calendar.getTimeInMillis());
+        tvDate.setTag(calendar);
     }
 
     private void setDefaultClassification() {
