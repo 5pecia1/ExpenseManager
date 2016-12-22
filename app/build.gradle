@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 
@@ -24,6 +25,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
@@ -37,4 +41,8 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     provided "org.projectlombok:lombok:1.12.6"
     compile 'com.github.29995270:HorizontalRefreshLayout:1.0.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
