@@ -53,6 +53,12 @@ fun getSelectedRangeWeekendCount(start: Calendar, end: Calendar): Int {
     return weekendCount
 }
 
+fun getSelectedRangeWeekdayCount(start: Calendar, end: Calendar): Int {
+    return (getSelectedRangeDayCount(start, end)
+            - getSelectedRangeWeekendCount(start, end)
+            )
+}
+
 /**
  * End day is not counted
  */

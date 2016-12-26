@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by sol on 2016-12-22.
  */
+
 public class CalendarCalculatorUnitTest {
     private final static SimpleDateFormat dataForamt
             = new SimpleDateFormat("yyyy-MM-dd");
@@ -29,13 +30,12 @@ public class CalendarCalculatorUnitTest {
     private static final List<Integer> addSameDays
             = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 3, 31, 370);//weekday, month, year
     private static final List<Integer> addWeekendDays
-            = Arrays.asList(1,2,3);
+            = Arrays.asList(1, 2, 3);
+
 
     private static Calendar startWeekDayCalendar;
     private static Calendar fridayCalendar;
     private static Calendar saturdayCalendar;
-    private static Calendar sundayCalendar;
-    private static Calendar mondayCalendar;
 
     @BeforeClass
     public static void calenderCalculatorKt_Main() {
@@ -49,7 +49,6 @@ public class CalendarCalculatorUnitTest {
 
         fridayCalendar = new GregorianCalendar(2016, 11, 23);
         saturdayCalendar = new GregorianCalendar(2016, 11, 24); //X-mas Eve ㅜ.ㅜ
-        sundayCalendar = new GregorianCalendar(2016, 11, 25);
 
 
         System.out.println("== start ==");
@@ -68,7 +67,7 @@ public class CalendarCalculatorUnitTest {
 
 
     @Test
-    public void getSelectedRangeWeekendCount_WeekDay() {
+    public void getSelectedRangeWeekendCount_Weekday() {
         assertEqualsSupport(
                 CalendarCalculatorKt::getSelectedRangeWeekendCount
                 , addWeekDays
@@ -96,7 +95,7 @@ public class CalendarCalculatorUnitTest {
     }
 
     @Test
-    public void getSelectedRangeWeekendCount_WeekendTest() {
+    public void getSelectedRangeWeekendCount_Weekend() {
         assertEqualsSupport(
                 CalendarCalculatorKt::getSelectedRangeWeekendCount
                 , addWeekendDays
@@ -113,7 +112,44 @@ public class CalendarCalculatorUnitTest {
     }
 
     @Test
-    public void getSelectedRangeDayCount_WeekDay() {
+    public void getSelectedRangeWeekdayCount_Weekend() {
+        assertEqualsSupport(
+                CalendarCalculatorKt::getSelectedRangeWeekdayCount
+                , Arrays.asList(0, 1, 2, 3)
+                , fridayCalendar
+                , new Custom8.Function<Integer, Integer>() {
+                    int i = -1;
+
+                    @Override
+                    public Integer apply(Integer day) {
+                        if (i  != 1){
+                            i ++;
+                        }
+                        return i;
+                    }
+                }
+        );
+    }
+
+    @Test
+    public void getSelectedRangeWeekdayCount_Weekday() {
+        assertEqualsSupport(
+                CalendarCalculatorKt::getSelectedRangeWeekdayCount
+                , Arrays.asList(0, 1, 2, 3, 4, 5)
+                , saturdayCalendar
+                , new Custom8.Function<Integer, Integer>() {
+                    int i = 1;
+
+                    @Override
+                    public Integer apply(Integer day) {
+                        return (day < 3)? 0 : i++;
+                    }
+                }
+        );
+    }
+
+    @Test
+    public void getSelectedRangeDayCount_Weekday() {
         assertEqualsSupport(
                 CalendarCalculatorKt::getSelectedRangeDayCount
                 , addWeekDays
@@ -128,6 +164,7 @@ public class CalendarCalculatorUnitTest {
                 }
         );
     }
+
     @Test
     public void getSelectedRangeDayCount_SameDay() {
         for (Integer day : addSameDays) {
@@ -147,7 +184,7 @@ public class CalendarCalculatorUnitTest {
     }
 
     @Test
-    public void getSelectedRangeDayCount_WeekendTest() {
+    public void getSelectedRangeDayCount_Weekend() {
         assertEqualsSupport(
                 CalendarCalculatorKt::getSelectedRangeDayCount
                 , addWeekendDays
