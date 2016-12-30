@@ -9,9 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import java.util.Calendar;
+
+import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sol_5pecia1.expense_manager.R;
+import sol_5pecia1.expense_manager.data.Account;
+import sol_5pecia1.expense_manager.data.AccountModel;
 import sol_5pecia1.expense_manager.data.Configure;
 import sol_5pecia1.expense_manager.data.Money;
 import sol_5pecia1.expense_manager.data.PreferenceModel;
@@ -20,7 +25,8 @@ import sol_5pecia1.expense_manager.view.MoneyFormatView;
 /**
  * Created by 5pecia1 on 2016-11-10.
  */
-public class InformationFragment extends BaseFragment implements MainContract.InformationView{
+public class InformationFragment extends BaseFragment
+        implements MainContract.InformationView{
     private final static int ICON = R.drawable.ic_assignment_white_24dp;
 
     @BindView(R.id.today_budget)
@@ -47,26 +53,37 @@ public class InformationFragment extends BaseFragment implements MainContract.In
     @BindView(R.id.plan_spend)
     MoneyFormatView mfvPlanSpend;
 
+    @BindArray(R.array.classification)
+    String[] classificationItems;
+
+    @BindArray(R.array.day_of_weeks)
+    String[] dayOfWeeks;
+
     private InformationPresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main_information_main, container, false);
+        ButterKnife.bind(this, rootView);
 
         SharedPreferences preferences
                 = PreferenceManager.getDefaultSharedPreferences(getContext());
         Resources resources = getResources();
         PreferenceModel preferenceModel = new Configure(preferences, resources);
-        presenter = new InformationPresenter(this, preferenceModel);
-        ButterKnife.bind(this, rootView);
+        AccountModel accountModel =
+                new Account(getActivity(), classificationItems);
+        presenter
+                = new InformationPresenter(this, preferenceModel, accountModel);
+
+
         return rootView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        refreshViw();
+        refreshView();
     }
 
     @Override
@@ -75,8 +92,8 @@ public class InformationFragment extends BaseFragment implements MainContract.In
     }
 
     @Override
-    public void refreshViw() {
-        presenter.setTodayBudget();
+    public void refreshView() {
+        presenter.refreshView();
     }
 
     @Override
@@ -86,22 +103,29 @@ public class InformationFragment extends BaseFragment implements MainContract.In
 
     @Override
     public void setTodayLeft(Money todayBudget, Money todayLeft) {
-        mfvTodayLeft.setMoney(todayBudget);
+        mfvTodayLeft.setMoney(todayLeft);
 
-        Money minusMoney = todayBudget.minus(todayLeft);
-        int progress = (int)(minusMoney.getMoney() * pbTodayLeft.getMax() / todayLeft.getMoney());
+        int progress = (int)(
+                ((float)todayLeft.getMoney())
+                        / todayBudget.getMoney()
+                        * pbTodayLeft.getMax()
+        );
 
         pbTodayLeft.setProgress(progress);
     }
 
     @Override
     public void setMonthLeft(Money monthBudget, Money monthLeft) {
-        mfvTodayLeft.setMoney(monthBudget);
+        mfvMonthLeft.setMoney(monthLeft);
 
-        Money minusMoney = monthBudget.minus(monthLeft);
-        int progress = (int)(minusMoney.getMoney() * pbTodayLeft.getMax() / monthLeft.getMoney());
+        int progress
+                = (int)(
+                ((float)monthLeft.getMoney())
+                        / monthBudget.getMoney()
+                        * pbTodayLeft.getMax()
+        );
 
-        pbTodayLeft.setProgress(progress);
+        pbMonthLeft.setProgress(progress);
     }
 
     @Override
@@ -110,16 +134,21 @@ public class InformationFragment extends BaseFragment implements MainContract.In
     }
 
     @Override
-    public void setDayAverageSpend(String day, Money averageSpend) {
+    public void setDayAverageSpend(Calendar day, Money averageSpend) {
         String format = mfvDayAverageSpend.getDefaultFormat();
-        format = String.format(format, day, MoneyFormatView.STRING_FORMAT_ARGUMENT);
+        String dayOfWeek = dayOfWeeks[day.get(Calendar.DAY_OF_WEEK) - 1];
+
+        format = String.format(
+                format
+                , dayOfWeek
+                , MoneyFormatView.STRING_FORMAT_ARGUMENT
+        );
         mfvDayAverageSpend.setMoney(averageSpend, format);
     }
 
     @Override
-    public void setPlanSpend(Money planSpend, String compare) {
+    public void setPlanSpend(Money planSpend) {
         String format = mfvPlanSpend.getDefaultFormat();
-        format = String.format(format, MoneyFormatView.STRING_FORMAT_ARGUMENT, compare);
         mfvPlanSpend.setMoney(planSpend, format);
     }
 }

@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sol_5pecia1.expense_manager.R;
 import sol_5pecia1.expense_manager.data.Account;
+import sol_5pecia1.expense_manager.data.AccountModel;
 import sol_5pecia1.expense_manager.data.Money;
 import sol_5pecia1.expense_manager.view.InputMoneyDialog;
 import sol_5pecia1.expense_manager.view.MoneyFormatView;
@@ -57,7 +58,10 @@ public class AddFragment extends BaseFragment implements MainContract.AddView {
         View rootView = inflater.inflate(R.layout.fragment_main_add, container, false);
         ButterKnife.bind(this, rootView);
 
-        presenter = new AddPresenter(this, new Account(getActivity()));
+        AccountModel accountModel =
+                new Account(getActivity(), classificationItems);
+
+        presenter = new AddPresenter(this, accountModel);
 
         addRadioButton();
 
