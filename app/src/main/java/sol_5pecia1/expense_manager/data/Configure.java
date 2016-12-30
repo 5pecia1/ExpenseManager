@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import sol_5pecia1.expense_manager.R;
+import sol_5pecia1.expense_manager.util.CalendarCalculatorKt;
 import sol_5pecia1.expense_manager.view.preference.StringArrayPickerPreference;
 
 /**
@@ -22,6 +23,16 @@ public class Configure implements PreferenceModel {
             , @NonNull Resources resources) {
         this.preferences = preferences;
         this.resources = resources;
+    }
+
+    @Override
+    public Money getMonthBudget() {
+        String budgetKey
+                = resources.getString(R.string.preference_month_budget);
+        String budget
+                = preferences.getString(budgetKey
+                , new Money().toString());
+        return new Money(budget);
     }
 
     @Override
@@ -40,52 +51,120 @@ public class Configure implements PreferenceModel {
     public Money getWeekendBudget() {
         String weekendBudgetKey
                 = resources.getString(R.string.preference_weekend_budget);
-        String weekednBudget
+        String weekendBudget
                 = preferences.getString(weekendBudgetKey
                 , new Money().toString());
 
-        return new Money(weekednBudget);
+        return new Money(weekendBudget);
     }
 
     @Override
     public int getLeftDay() {
-        Calendar currentCalender = GregorianCalendar.getInstance();
+        return CalendarCalculatorKt.getSelectedRangeDayCount(
+                GregorianCalendar.getInstance()
+                , getNextSettlement()
+        );
+    }
 
-        String settlementKey =
-                resources.getString(R.string.preference_settlement_day);
+    @Override
+    public Calendar getNextSettlement() {
+        Calendar currentCalendar = GregorianCalendar.getInstance();
+
         String[] dayItems = resources.getStringArray(R.array.days);
-
         int settlementIndex
                 = preferences.getInt(
-                settlementKey
+                resources.getString(R.string.preference_settlement_day)
                 , StringArrayPickerPreference.DEFAULT_VALUE
         );
-        int settlementDay = (TextUtils.isDigitsOnly(dayItems[settlementIndex]))
+        boolean isDigitsOnly
+                = TextUtils.isDigitsOnly(dayItems[settlementIndex]);
+        int currentActualMaximum
+                = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int settlementYear = currentCalendar.get(Calendar.YEAR);
+        int settlementMonth = currentCalendar.get(Calendar.MONTH);
+        int settlementDay = (isDigitsOnly)
                 ? Integer.parseInt(dayItems[settlementIndex])
-                : currentCalender.getActualMaximum(Calendar.DAY_OF_MONTH);
+                : currentActualMaximum;
+
+        if (settlementMonth == Calendar.FEBRUARY
+                && settlementDay > currentActualMaximum) {
+            settlementDay = currentActualMaximum;
+        }
+
+        if ((settlementDay - currentCalendar.get(Calendar.DAY_OF_MONTH)) <= 0) {
+             if (settlementMonth < Calendar.DECEMBER) {
+                 settlementMonth++;
+             } else {
+                 settlementMonth = Calendar.JANUARY;
+                 settlementYear++;
+             }
+        }
 
         Calendar settlementCalender = new GregorianCalendar(
-                currentCalender.get(Calendar.YEAR)
-                , currentCalender.get(Calendar.MONTH)
-                , settlementDay
+                settlementYear
+                , settlementMonth
+                , 1
         );
 
-        if ((settlementDay - currentCalender.get(Calendar.DAY_OF_MONTH)) <= 0) {
-            settlementCalender.add(Calendar.MONTH, 1);
+        if ( !isDigitsOnly) {
+            settlementDay
+                    = settlementCalender
+                    .getActualMaximum(Calendar.DAY_OF_MONTH);
+        }
+        settlementCalender.add(Calendar.DAY_OF_MONTH
+                , settlementDay - 1);
+
+        return settlementCalender;
+    }
+
+    @Override
+    public Calendar getCurrentSettlement() {
+        Calendar currentCalendar = GregorianCalendar.getInstance();
+
+        String[] dayItems = resources.getStringArray(R.array.days);
+        int settlementIndex
+                = preferences.getInt(
+                resources.getString(R.string.preference_settlement_day)
+                , StringArrayPickerPreference.DEFAULT_VALUE
+        );
+        boolean isDigitsOnly
+                = TextUtils.isDigitsOnly(dayItems[settlementIndex]);
+        int currentActualMaximum
+                = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int settlementYear = currentCalendar.get(Calendar.YEAR);
+        int settlementMonth = currentCalendar.get(Calendar.MONTH);
+        int settlementDay = (isDigitsOnly)
+                ? Integer.parseInt(dayItems[settlementIndex])
+                : currentActualMaximum;
+
+        if (settlementMonth == Calendar.FEBRUARY
+                && settlementDay > currentActualMaximum) {
+            settlementDay = currentActualMaximum;
         }
 
-        int leftDay;
-        if (currentCalender.get(Calendar.MONTH)
-                == settlementCalender.get(Calendar.MONTH)) {
-            leftDay
-                    = settlementCalender.get(Calendar.DAY_OF_MONTH)
-                    - currentCalender.get(Calendar.DAY_OF_MONTH);
-        } else {
-            int currentMonthLeft
-                    = currentCalender.getActualMaximum(Calendar.DAY_OF_MONTH)
-                    - currentCalender.get(Calendar.DAY_OF_MONTH);
-            leftDay = currentMonthLeft + settlementDay;
+        if ((settlementDay - currentCalendar.get(Calendar.DAY_OF_MONTH)) > 0) {
+             if (settlementMonth > Calendar.JANUARY) {
+                 settlementMonth--;
+             } else {
+                 settlementMonth = Calendar.DECEMBER;
+                 settlementYear--;
+             }
         }
-        return leftDay;
+
+        Calendar settlementCalender = new GregorianCalendar(
+                settlementYear
+                , settlementMonth
+                , 1
+        );
+
+        if ( !isDigitsOnly) {
+            settlementDay
+                    = settlementCalender
+                    .getActualMaximum(Calendar.DAY_OF_MONTH);
+        }
+        settlementCalender.add(Calendar.DAY_OF_MONTH
+                , settlementDay - 1);
+
+        return settlementCalender;
     }
 }

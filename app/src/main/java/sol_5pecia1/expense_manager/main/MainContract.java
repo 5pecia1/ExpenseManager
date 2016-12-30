@@ -14,13 +14,13 @@ public interface MainContract {
         void setLeftDay(String day);
     }
     interface InformationView {
-        void refreshViw();
+        void refreshView();
         void setTodayBudget(Money todayBudget);
         void setTodayLeft(Money todayBudget, Money todayLeft);
         void setMonthLeft(Money monthBudget, Money monthLeft);
         void setMonthAllSpend(Money monthAllSpend);
-        void setDayAverageSpend(String day, Money averageSpend);
-        void setPlanSpend(Money planSpend, String compare);
+        void setDayAverageSpend(Calendar day, Money averageSpend);
+        void setPlanSpend(Money planSpend);
     }
     interface AddView {
         void initView();
@@ -32,7 +32,13 @@ public interface MainContract {
     }
 
     interface InformationListener {
+        void refreshView();
         void setTodayBudget();
+        void setTodayLeft();
+        void setMonthLeft();
+        void setMonthAllSpend();
+        void setDayAverageSpend();
+        void setPlanSpend();
     }
 
     interface AddListenter {

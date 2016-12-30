@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
@@ -146,7 +145,7 @@ public class MainActivity extends AppCompatActivity
                 Fragment currentFragment = sectionsPagerAdapter.getItem(position);
 
                 if (currentFragment instanceof InformationFragment) {
-                    ((InformationFragment) currentFragment).refreshViw();
+                    ((InformationFragment) currentFragment).refreshView();
                 } else if (currentFragment instanceof AddFragment) {
                     ((AddFragment) currentFragment).initView();
                 }
