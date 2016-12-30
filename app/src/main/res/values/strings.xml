@@ -8,9 +8,9 @@
     <string name="default_money_format">%s원</string>
     <string name="today_budget_format">오늘 예산 %s원</string>
     <string name="month_all_spend">이번달 총 사용 %s원</string>
-    <string name="day_average_spend_format">평균 %1$s원 요일 %2$s 사용</string>
-    <string name="plan_spend_format">계획대비 %1$s원 %2$s 사용</string>
-    
+    <string name="day_average_spend_format">%1$s요일 평균 %2$s원 사용</string>
+    <string name="plan_spend_format">계획대비 %1$s원 사용</string>
+
     <string name="today_left">오늘 남음</string>
     <string name="month_left">이번달 남음</string>
 
@@ -67,4 +67,14 @@
     <string name="preference_month_budget">month_budget</string>
     <string name="preference_weekday_budget">day_of_weekdays_budget"</string>
     <string name="preference_weekend_budget">day_of_weekend_budget"</string>
+
+    <string-array name="day_of_weeks">
+        <item>일</item>
+        <item>월</item>
+        <item>화</item>
+        <item>수</item>
+        <item>목</item>
+        <item>금</item>
+        <item>토</item>
+    </string-array>
 </resources>
