@@ -149,6 +149,21 @@ public class InformationFragment extends BaseFragment
     @Override
     public void setPlanSpend(Money planSpend) {
         String format = mfvPlanSpend.getDefaultFormat();
+        String compare;
+
+        if (planSpend.getMoney() < 0) {
+            compare = getString(R.string.more);
+            planSpend = new Money(-planSpend.getMoney());
+        } else {
+            compare = getString(R.string.less);
+        }
+
+        format = String.format(
+                format
+                , MoneyFormatView.STRING_FORMAT_ARGUMENT
+                , compare
+        );
+
         mfvPlanSpend.setMoney(planSpend, format);
     }
 }

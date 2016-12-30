@@ -9,7 +9,9 @@
     <string name="today_budget_format">오늘 예산 %s원</string>
     <string name="month_all_spend">이번달 총 사용 %s원</string>
     <string name="day_average_spend_format">%1$s요일 평균 %2$s원 사용</string>
-    <string name="plan_spend_format">계획대비 %1$s원 사용</string>
+    <string name="plan_spend_format">계획대비 %1$s원 %2$s 사용</string>
+    <string name="less">적게</string>
+    <string name="more">많이</string>
 
     <string name="today_left">오늘 남음</string>
     <string name="month_left">이번달 남음</string>
