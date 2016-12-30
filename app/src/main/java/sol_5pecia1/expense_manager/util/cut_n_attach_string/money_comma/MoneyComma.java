@@ -1,5 +1,7 @@
 package sol_5pecia1.expense_manager.util.cut_n_attach_string.money_comma;
 
+import android.util.Log;
+
 import java.util.regex.Pattern;
 
 import sol_5pecia1.expense_manager.util.cut_n_attach_string.CutNAttachStringInterval;
@@ -12,6 +14,8 @@ import sol_5pecia1.expense_manager.util.cut_n_attach_string.money_comma.exceptio
  * @author 5pecia1
  *
  */
+//TODO change all method for general because plus minus sign
+    //TODO change indent using space
 public class MoneyComma {
 	private final static String COMMA = ",";
 	private final static String DOT = ".";
@@ -32,7 +36,7 @@ public class MoneyComma {
 			throw new InvalidNumberException();
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @author 5pecia1
@@ -42,9 +46,15 @@ public class MoneyComma {
 	 * @throws NotMoneyException
 	 */
 	public static String makePure(String money) throws NotMoneyException{
+        String sign = "";
+        if (Pattern.matches("^[-|+]", money)) {
+            sign += money.charAt(0);
+            money = money.substring(1);
+        }
+
 		checkMoney(money);
 		String result = CutNAttachStringInterval.makePureString(money, COMMA);
-		return result;
+		return sign + result;
 	}
 	
 	/**
@@ -57,10 +67,15 @@ public class MoneyComma {
 	 * @throws NotMoneyException
 	 */
 	public static String divide(String money, int divideUnit) throws NotMoneyException{
-		checkMoney(money);
+        String sign = "";
+		if (Pattern.matches("^[-|+].*", money)) {
+            sign += money.charAt(0);
+            money = money.substring(1);
+		}
+        checkMoney(money);
 		String[] splitDot = money.split("[" + DOT + "]");
 		String dividedMoney = CutNAttachStringInterval.makePureNDivideString(splitDot[0], COMMA, divideUnit); 
-		return dividedMoney + ((splitDot.length == 2)? DOT + splitDot[1] : "");
+		return sign + dividedMoney + ((splitDot.length == 2)? DOT + splitDot[1] : "");
 	}
 	
 	/**
@@ -75,12 +90,17 @@ public class MoneyComma {
 	 * @throws InvalidNumberException
 	 */
 	public static String append(String money, int divideUnit, String appendNumber) throws NotMoneyException, InvalidNumberException{
+        String sign = "";
+		if (Pattern.matches("^[-|+]", money)) {
+            sign += money.charAt(0);
+            money = money.substring(1);
+		}
 		checkMoney(money);
 		checkAppendNumber(appendNumber);
 		
 		String resultMoney = divide(money + appendNumber, divideUnit);
 
-		return resultMoney;
+		return sign + resultMoney;
 	}
 	
 	/**
