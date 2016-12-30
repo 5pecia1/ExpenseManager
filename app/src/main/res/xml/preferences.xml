@@ -24,7 +24,7 @@
             android:defaultValue="0"
             />
         <sol_5pecia1.expense_manager.view.preference.MoneyEditTextPreference
-            android:key="@string/weekend_budget"
+            android:key="@string/preference_weekend_budget"
             android:summary="@string/default_money_format"
             android:title="@string/weekend_budget"
             android:defaultValue="0"
