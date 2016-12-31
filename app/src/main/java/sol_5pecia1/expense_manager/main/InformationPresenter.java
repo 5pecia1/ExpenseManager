@@ -49,38 +49,13 @@ public class InformationPresenter implements MainContract.InformationListener {
                 = accountModel
                 .getPreviousDayOfWeekAverage(today.get(Calendar.DAY_OF_WEEK));
 
-        //TODO move other method
-        float weekdayPercentage = getBudgetPercentage(
-                preferenceModel.getWeekdayBudget()
+        Money planSpend = getPlanSpend(
+                today
                 , currentSettlement
                 , nextSettlement
+                , monthBudget
+                , monthUsage
         );
-        float weekendPercentage = getBudgetPercentage(
-                preferenceModel.getWeekendBudget()
-                , currentSettlement
-                , nextSettlement
-        );
-        Calendar tomorrow = (Calendar)today.clone();
-        tomorrow.add(Calendar.DAY_OF_MONTH, 1);
-
-        int leftWeekday
-                = CalendarCalculatorKt
-                .getSelectedRangeWeekdayCount(
-                        currentSettlement
-                        , tomorrow
-                );
-        int leftWeekend
-                 = CalendarCalculatorKt
-                .getSelectedRangeWeekendCount(
-                        currentSettlement
-                        , tomorrow
-                );
-        Money budget = new Money((int)(
-                monthBudget.getMoney() * weekdayPercentage * leftWeekday
-                +  monthBudget.getMoney() * weekendPercentage * leftWeekend));
-        Money planSpend = budget.minus(monthUsage);
-        //.////////////////////
-
 
         view.setTodayBudget(todayBudget);
         view.setTodayLeft(todayBudget, todayLeft);
@@ -195,5 +170,42 @@ public class InformationPresenter implements MainContract.InformationListener {
                 + weekendBudget* leftWeekend
                 );
         return percentage;
+    }
+
+    private Money getPlanSpend(Calendar today
+            , Calendar currentSettlement
+            , Calendar nextSettlement
+            , Money monthBudget
+            , Money monthUsage) {
+        float weekdayPercentage = getBudgetPercentage(
+                preferenceModel.getWeekdayBudget()
+                , currentSettlement
+                , nextSettlement
+        );
+        float weekendPercentage = getBudgetPercentage(
+                preferenceModel.getWeekendBudget()
+                , currentSettlement
+                , nextSettlement
+        );
+        Calendar tomorrow = (Calendar)today.clone();
+        tomorrow.add(Calendar.DAY_OF_MONTH, 1);
+
+        int leftWeekday
+                = CalendarCalculatorKt
+                .getSelectedRangeWeekdayCount(
+                        currentSettlement
+                        , tomorrow
+                );
+        int leftWeekend
+                 = CalendarCalculatorKt
+                .getSelectedRangeWeekendCount(
+                        currentSettlement
+                        , tomorrow
+                );
+        Money budget = new Money((int)(
+                monthBudget.getMoney() * weekdayPercentage * leftWeekday
+                +  monthBudget.getMoney() * weekendPercentage * leftWeekend));
+
+        return budget.minus(monthUsage);
     }
 }
