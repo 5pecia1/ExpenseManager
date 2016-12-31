@@ -20,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.freeze.horizontalrefreshlayout.lib.HorizontalRefreshLayout;
@@ -35,6 +34,9 @@ import butterknife.ButterKnife;
 import sol_5pecia1.expense_manager.R;
 import sol_5pecia1.expense_manager.data.Configure;
 import sol_5pecia1.expense_manager.data.PreferenceModel;
+import sol_5pecia1.expense_manager.main.Add.AddFragment;
+import sol_5pecia1.expense_manager.main.Chart.ChartFragment;
+import sol_5pecia1.expense_manager.main.Information.InformationFragment;
 import sol_5pecia1.expense_manager.setting.SettingActivity;
 
 public class MainActivity extends AppCompatActivity

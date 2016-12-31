@@ -1,4 +1,4 @@
-package sol_5pecia1.expense_manager.main;
+package sol_5pecia1.expense_manager.main.Add;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -22,6 +22,8 @@ import sol_5pecia1.expense_manager.R;
 import sol_5pecia1.expense_manager.data.Account;
 import sol_5pecia1.expense_manager.data.AccountModel;
 import sol_5pecia1.expense_manager.data.Money;
+import sol_5pecia1.expense_manager.main.BaseFragment;
+import sol_5pecia1.expense_manager.main.MainContract;
 import sol_5pecia1.expense_manager.view.InputMoneyDialog;
 import sol_5pecia1.expense_manager.view.MoneyFormatView;
 

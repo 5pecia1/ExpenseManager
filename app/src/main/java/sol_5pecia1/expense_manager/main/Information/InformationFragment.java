@@ -1,4 +1,4 @@
-package sol_5pecia1.expense_manager.main;
+package sol_5pecia1.expense_manager.main.Information;
 
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -20,13 +20,15 @@ import sol_5pecia1.expense_manager.data.AccountModel;
 import sol_5pecia1.expense_manager.data.Configure;
 import sol_5pecia1.expense_manager.data.Money;
 import sol_5pecia1.expense_manager.data.PreferenceModel;
+import sol_5pecia1.expense_manager.main.BaseFragment;
+import sol_5pecia1.expense_manager.main.MainContract;
 import sol_5pecia1.expense_manager.view.MoneyFormatView;
 
 /**
  * Created by 5pecia1 on 2016-11-10.
  */
 public class InformationFragment extends BaseFragment
-        implements MainContract.InformationView{
+        implements MainContract.InformationView {
     private final static int ICON = R.drawable.ic_assignment_white_24dp;
 
     @BindView(R.id.today_budget)

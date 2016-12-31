@@ -1,4 +1,4 @@
-package sol_5pecia1.expense_manager.main;
+package sol_5pecia1.expense_manager.main.Information;
 
 import android.support.annotation.NonNull;
 
@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import sol_5pecia1.expense_manager.data.AccountModel;
 import sol_5pecia1.expense_manager.data.Money;
 import sol_5pecia1.expense_manager.data.PreferenceModel;
+import sol_5pecia1.expense_manager.main.MainContract;
 import sol_5pecia1.expense_manager.util.CalendarCalculatorKt;
 
 /**
