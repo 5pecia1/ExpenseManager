@@ -9,4 +9,6 @@
 
     <dimen name="dialog_padding">16dp</dimen>
     <dimen name="dialog_item_margin">8dp</dimen>
+    <dimen name="add_fragment_input_text_size">32sp</dimen>
+    <dimen name="add_fragment_besides_text_size">16sp</dimen>
 </resources>

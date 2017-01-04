@@ -1,13 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".main.MainActivity"
-    android:orientation="vertical"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              tools:context=".main.MainActivity"
+              android:orientation="vertical"
     >
 
     <RelativeLayout
@@ -27,12 +28,25 @@
             />
     </RelativeLayout>
 
-    <sol_5pecia1.expense_manager.view.MoneyFormatView
-        android:id="@+id/addMoney"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_money"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/amount"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"/>
+
+        <sol_5pecia1.expense_manager.view.MoneyFormatView
+            android:id="@+id/addMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/add_fragment_input_text_size"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/amount"/>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -44,28 +58,47 @@
             />
     </ScrollView>
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/besides"
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/besides"
+            android:text="@string/date"
             />
+        <TextView
+            android:id="@+id/inputDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/date"
+            android:textSize="@dimen/add_fragment_input_text_size"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/inputBesides"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@+id/besides"
+            android:textSize="@dimen/add_fragment_besides_text_size"
             />
+
+        <TextView
+            android:id="@+id/besides"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/besides"
+            android:textSize="@dimen/add_fragment_besides_text_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"/>
     </RelativeLayout>
 </LinearLayout>

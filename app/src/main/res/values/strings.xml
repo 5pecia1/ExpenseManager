@@ -22,7 +22,7 @@
 
     <string name="arrow_cancel">&lt;&lt; 취소</string>
     <string name="arrow_save">저장 &gt;&gt;</string>
-    <string name="add_money">금액 : %s원</string>
+    <string name="amount">금액 : </string>
     <string name="want_save">저장\n하시겠\n습니까?</string>
     <string name="save">저장</string>
     <string name="saving">저장 중</string>
@@ -46,7 +46,8 @@
         <item>수입</item>
     </string-array>
 
-    <string name="date_format">날짜 : %1$d년 %2$d월 %3$d일</string>
+    <string name="date">날짜 : </string>
+    <string name="date_format">%1$d년 %2$d월 %3$d일</string>
     <string name="besides">내역 : </string>
 
     <string name="main_setting">메인 설정</string>

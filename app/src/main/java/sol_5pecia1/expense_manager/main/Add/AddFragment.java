@@ -40,7 +40,7 @@ public class AddFragment extends BaseFragment implements MainContract.AddView {
     @BindView(R.id.classification)
     RadioGroup rgClassification;
 
-    @BindView(R.id.date)
+    @BindView(R.id.inputDate)
     TextView tvDate;
 
     @BindView(R.id.inputBesides)
@@ -120,7 +120,7 @@ public class AddFragment extends BaseFragment implements MainContract.AddView {
         showAddDialog(mfvAddMoney.getMoney(), sign);
     }
 
-    @OnClick(R.id.date)
+    @OnClick(R.id.inputDate)
     void onDateClicked(TextView view) {
         Calendar calendar = (Calendar)view.getTag();
 
