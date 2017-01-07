@@ -45,4 +45,8 @@ public interface MainContract {
         void save(@NonNull Money money, @NonNull String classification
             , @NonNull Calendar saveDate, @NonNull String besides);
     }
+
+    interface ChartListener {
+
+    }
 }
