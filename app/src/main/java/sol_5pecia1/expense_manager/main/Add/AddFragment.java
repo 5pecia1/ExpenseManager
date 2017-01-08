@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sol_5pecia1.expense_manager.R;
-import sol_5pecia1.expense_manager.data.Account;
+import sol_5pecia1.expense_manager.data.AccountSQLiteOpenHelper;
 import sol_5pecia1.expense_manager.data.AccountModel;
 import sol_5pecia1.expense_manager.data.Money;
 import sol_5pecia1.expense_manager.main.BaseFragment;
@@ -61,7 +61,7 @@ public class AddFragment extends BaseFragment implements MainContract.AddView {
         ButterKnife.bind(this, rootView);
 
         AccountModel accountModel =
-                new Account(getActivity(), classificationItems);
+                new AccountSQLiteOpenHelper(getActivity(), classificationItems);
 
         presenter = new AddPresenter(this, accountModel);
 

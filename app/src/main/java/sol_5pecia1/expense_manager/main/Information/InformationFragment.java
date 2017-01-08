@@ -15,7 +15,7 @@ import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sol_5pecia1.expense_manager.R;
-import sol_5pecia1.expense_manager.data.Account;
+import sol_5pecia1.expense_manager.data.AccountSQLiteOpenHelper;
 import sol_5pecia1.expense_manager.data.AccountModel;
 import sol_5pecia1.expense_manager.data.Configure;
 import sol_5pecia1.expense_manager.data.Money;
@@ -74,7 +74,7 @@ public class InformationFragment extends BaseFragment
         Resources resources = getResources();
         PreferenceModel preferenceModel = new Configure(preferences, resources);
         AccountModel accountModel =
-                new Account(getActivity(), classificationItems);
+                new AccountSQLiteOpenHelper(getActivity(), classificationItems);
         presenter
                 = new InformationPresenter(this, preferenceModel, accountModel);
 
