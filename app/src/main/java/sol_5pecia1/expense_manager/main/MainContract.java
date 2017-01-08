@@ -13,6 +13,7 @@ public interface MainContract {
     interface MainView {
         void setLeftDay(String day);
     }
+
     interface InformationView {
         void refreshView();
         void setTodayBudget(Money todayBudget);
@@ -22,9 +23,14 @@ public interface MainContract {
         void setDayAverageSpend(Calendar day, Money averageSpend);
         void setPlanSpend(Money planSpend);
     }
+
     interface AddView {
         void initView();
         void save();
+    }
+
+    interface AccountView {
+
     }
 
     interface MainActionListener {
@@ -46,7 +52,7 @@ public interface MainContract {
             , @NonNull Calendar saveDate, @NonNull String besides);
     }
 
-    interface ChartListener {
+    interface AccountListener {
 
     }
 }

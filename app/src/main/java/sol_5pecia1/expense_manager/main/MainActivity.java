@@ -35,14 +35,14 @@ import sol_5pecia1.expense_manager.R;
 import sol_5pecia1.expense_manager.data.Configure;
 import sol_5pecia1.expense_manager.data.PreferenceModel;
 import sol_5pecia1.expense_manager.main.Add.AddFragment;
-import sol_5pecia1.expense_manager.main.Chart.ChartFragment;
+import sol_5pecia1.expense_manager.main.Chart.account.AccountFragment;
 import sol_5pecia1.expense_manager.main.Information.InformationFragment;
 import sol_5pecia1.expense_manager.setting.SettingActivity;
 
 public class MainActivity extends AppCompatActivity
         implements MainContract.MainView {
     private final static List<BaseFragment> MAIN_FRAGMENT = Arrays.asList(
-            new ChartFragment()
+            new AccountFragment()
             , new InformationFragment()
             , new AddFragment()
     );

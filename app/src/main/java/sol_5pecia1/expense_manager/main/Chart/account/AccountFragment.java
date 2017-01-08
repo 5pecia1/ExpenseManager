@@ -1,4 +1,4 @@
-package sol_5pecia1.expense_manager.main.Chart;
+package sol_5pecia1.expense_manager.main.Chart.account;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,13 +16,15 @@ import sol_5pecia1.expense_manager.main.MainContract;
 /**
  * Created by 5pecia1 on 2016-11-10.
  */
-public class ChartFragment
+public class AccountFragment
         extends BaseFragment
-        implements MainContract.ChartListener{
+        implements MainContract.AccountView {
     private final static int ICON = R.drawable.ic_more_vert_white_24dp;
 
     @BindView(R.id.accountView)
     RecyclerView accountView;
+
+    private AccountAdapter accountAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,7 +32,13 @@ public class ChartFragment
         View rootView = inflater.inflate(R.layout.fragment_main_chart, container, false);
         ButterKnife.bind(this, rootView);
 
-        accountView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager
+                = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+//        accountAdapter = new AccountAdapter();
+
+        accountView.setLayoutManager(linearLayoutManager);
         return rootView;
     }
 
