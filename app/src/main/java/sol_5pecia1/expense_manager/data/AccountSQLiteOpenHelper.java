@@ -30,7 +30,7 @@ public class AccountSQLiteOpenHelper
     private final static String BESIDES = "besides";
 
     private final static String CREATE_QUERY
-            = "CREATE TABLE " + AccountSQLiteOpenHelper.TABLE_NAME
+            = "CREATE TABLE " + TABLE_NAME
             + "("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
             + MONEY + " INTEGER, "
@@ -45,13 +45,13 @@ public class AccountSQLiteOpenHelper
 
     public AccountSQLiteOpenHelper(@NonNull Context context
             , @NonNull String[] classificationItems) {
-        super(context, AccountSQLiteOpenHelper.DB_NAME, null, AccountSQLiteOpenHelper.VERSION);
+        super(context,DB_NAME, null, VERSION);
         this.classificationItems = classificationItems;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(AccountSQLiteOpenHelper.CREATE_QUERY);
+        db.execSQL(CREATE_QUERY);
     }
 
     @Override
@@ -64,18 +64,15 @@ public class AccountSQLiteOpenHelper
     public long addAccount(@NonNull Money money, @NonNull String classification
             , @NonNull Calendar saveDate, @NonNull String besides) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(AccountSQLiteOpenHelper.MONEY, money.getMoney());
-        contentValues.put(AccountSQLiteOpenHelper.CLASSIFICATION, classification);
-        contentValues.put(AccountSQLiteOpenHelper.SAVE_DATE
+        contentValues.put(MONEY, money.getMoney());
+        contentValues.put(CLASSIFICATION, classification);
+        contentValues.put(SAVE_DATE
                 , DATE_FORMAT.format(saveDate.getTime()));
-        contentValues.put(AccountSQLiteOpenHelper.BESIDES, besides);
+        contentValues.put(BESIDES, besides);
 
         SQLiteDatabase db = getWritableDatabase();
-        long success = db.insert(
-                AccountSQLiteOpenHelper.TABLE_NAME
-                , null
-                , contentValues
-        );
+        long success = db.insert(TABLE_NAME, null, contentValues);
+        
         db.close();
         return success;
     }
@@ -89,16 +86,16 @@ public class AccountSQLiteOpenHelper
         String moneySum = "moneySum";
         String[] columns = new String[]{
                 AccountSQLiteOpenHelper.ID
-                , "SUM(" + AccountSQLiteOpenHelper.MONEY + ") AS " + moneySum
+                , "SUM(" + MONEY + ") AS " + moneySum
         };
         String useSelection
-                = "(" + AccountSQLiteOpenHelper.SAVE_DATE + " BETWEEN ? AND ?" + ")"
+                = "(" + SAVE_DATE + " BETWEEN ? AND ?" + ")"
                 + " AND "
-                + "(" + AccountSQLiteOpenHelper.CLASSIFICATION + "!= ?" + ")";
+                + "(" + CLASSIFICATION + "!= ?" + ")";
         String incomeSelection
-                = "(" + AccountSQLiteOpenHelper.SAVE_DATE + " BETWEEN ? AND ?" + ")" +
+                = "(" + SAVE_DATE + " BETWEEN ? AND ?" + ")" +
                 " AND " +
-                "(" + AccountSQLiteOpenHelper.CLASSIFICATION + "== ?" + ")";
+                "(" + CLASSIFICATION + "== ?" + ")";
         String[] selectionArgs = new String[]{
                 DATE_FORMAT.format(start.getTime())
                 , DATE_FORMAT.format(end.getTime())
@@ -110,14 +107,14 @@ public class AccountSQLiteOpenHelper
         String orderBy = null;
 
         SQLiteDatabase db = getReadableDatabase();
-        Cursor useCursor = db.query(AccountSQLiteOpenHelper.TABLE_NAME
+        Cursor useCursor = db.query(TABLE_NAME
                 , columns
                 , useSelection
                 , selectionArgs
                 , groupBy
                 , having
                 , orderBy);
-        Cursor incomeCursor = db.query(AccountSQLiteOpenHelper.TABLE_NAME
+        Cursor incomeCursor = db.query(TABLE_NAME
                 , columns
                 , incomeSelection
                 , selectionArgs
@@ -153,17 +150,17 @@ public class AccountSQLiteOpenHelper
         String averageColnum = "aver";
 
         String[] columns = new String[]{
-                "SUM(" + AccountSQLiteOpenHelper.MONEY + ")"
-                        + "/COUNT(DISTINCT " + AccountSQLiteOpenHelper.SAVE_DATE + ""
+                "SUM(" + MONEY + ")"
+                        + "/COUNT(DISTINCT " + SAVE_DATE + ""
                         + ") AS " + averageColnum
         };
         String selection
-                = "strftime('%w', " + AccountSQLiteOpenHelper.SAVE_DATE + ")=?"
+                = "strftime('%w', " + SAVE_DATE + ")=?"
                 + " AND "
-                + AccountSQLiteOpenHelper.SAVE_DATE + "<?";
+                + SAVE_DATE + "<?";
         String[] selectionArgs = new String[]{
                 String.valueOf(dayOfWeek)
-                , AccountSQLiteOpenHelper.DATE_FORMAT.format(current.getTime())
+                , DATE_FORMAT.format(current.getTime())
         };
         String groupBy = null;
         String having = null;
@@ -171,7 +168,7 @@ public class AccountSQLiteOpenHelper
 
         SQLiteDatabase db = getReadableDatabase();
 
-        Cursor cursor = db.query(AccountSQLiteOpenHelper.TABLE_NAME
+        Cursor cursor = db.query(TABLE_NAME
                 , columns
                 , selection
                 , selectionArgs
